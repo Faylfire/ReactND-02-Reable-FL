@@ -1,0 +1,177 @@
+import {
+	UPDATE_POST,
+	REMOVE_POST,
+	UPDATE_COMMENT,
+	REMOVE_COMMENT,
+    SET_FILTER,
+} from '../actions'
+import { combineReducers } from 'redux'
+
+
+const defaultComments = {
+  "894tuq4ut84ut8v4t8wun89g": {
+    id: '894tuq4ut84ut8v4t8wun89g',
+    parentId: "8xf0y6ziyjabvozdd253nd",
+    timestamp: 1468166872634,
+    body: 'Hi there! I am a COMMENT.',
+    author: 'thingtwo',
+    voteScore: 6,
+    deleted: false,
+    parentDeleted: false
+  },
+  "8tu4bsun805n8un48ve89": {
+    id: '8tu4bsun805n8un48ve89',
+    parentId: "8xf0y6ziyjabvozdd253nd",
+    timestamp: 1469479767190,
+    body: 'Comments. Are. Cool.',
+    author: 'thingone',
+    voteScore: -5,
+    deleted: false,
+    parentDeleted: false
+  },
+   "8tu4bsun805n8un48ve80": {
+    id: '8tu4bsun805n8un48ve80',
+    parentId: "8xf0y6ziyjabvozdd253nd",
+    timestamp: 1469479767190,
+    body: 'Comments. Are. Cooler. YEAH!',
+    author: 'thingone',
+    voteScore: -4,
+    deleted: false,
+    parentDeleted: false
+  },
+}
+
+const defaultPosts= {
+  "8xf0y6ziyjabvozdd253nd": {
+    id: '8xf0y6ziyjabvozdd253nd',
+    timestamp: 1467166872634,
+    title: 'Udacity is the best place to learn React',
+    body: 'Everyone says so after all.',
+    author: 'thingtwo',
+    category: 'react',
+    voteScore: 6,
+    deleted: false
+  },
+  "6ni6ok3ym7mf1p33lnez": {
+    id: '6ni6ok3ym7mf1p33lnez',
+    timestamp: 1468479767190,
+    title: 'Learn Redux in 52 minutes!',
+    body: 'Just kidding. It takes more than 10 minutes to learn technology.',
+    author: 'thingone',
+    category: 'redux',
+    voteScore: -5,
+    deleted: false
+  },
+   "6ni6ok3ym7mf1p33lnea": {
+    id: '6ni6ok3ym7mf1p33lnea',
+    timestamp: 1468479767191,
+    title: 'Learn Redux in 11 changed minutes!',
+    body: 'JK. It takes more than 11 minutes to learn technology.',
+    author: 'thingone',
+    category: 'general',
+    voteScore: -4,
+    deleted: false
+  },
+  "6ni6ok3ym7mf1p33lneb": {
+    id: '6ni6ok3ym7mf1p33lneb',
+    timestamp: 1468479767192,
+    title: 'Learn Redux in 12 minutes!',
+    body: 'JK2. It takes more than 12 minutes to learn technology.',
+    author: 'thingone1',
+    category: 'udacity',
+    voteScore: -3,
+    deleted: false
+  },
+  "6ni6ok3ym7mf1p33lnec": {
+    id: '6ni6ok3ym7mf1p33lneb',
+    timestamp: 1468479767192,
+    title: 'Learn Redux in 12 Added minutes!',
+    body: 'JK2. It takes more than 12 minutes to learn technology.',
+    author: 'thingone1',
+    category: 'udacity',
+    voteScore: -3,
+    deleted: false
+  },
+
+}
+
+function posts (state = {}, action) {
+	const {postID, post } = action
+
+	switch(action.type) {
+		case UPDATE_POST:
+			return {
+				...state,
+				[postID]: post
+			}
+		case REMOVE_POST:
+			return {
+				...state,
+				[postID]:{
+					...state[postID],
+					deleted: true
+				}
+			}
+		default:
+			return state
+	}
+
+}
+
+
+function comments (state = {}, action) {
+	const {commentID, comment } = action
+
+
+	switch(action.type) {
+		case UPDATE_COMMENT:
+			return {
+				...state,
+				[commentID]: comment
+			}
+		case REMOVE_COMMENT:
+			return {
+				...state,
+				[commentID]:{
+					...state[commentID],
+					deleted: true
+				}
+			}
+		default:
+			return state
+	}
+
+}
+
+
+function categories (state = {}, action) {
+
+	switch(action.type) {
+		default:
+			return state
+	}
+
+}
+
+
+function viewFilter ( state = {category: 'all'}, action) {
+    const { category } = action
+    console.log(action)
+    switch(action.type) {
+        case SET_FILTER:
+            return {
+                category
+            }
+        default:
+            return state
+    }
+
+}
+
+
+export default combineReducers({
+	posts,
+	comments,
+	categories,
+    viewFilter,
+});

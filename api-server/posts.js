@@ -1,4 +1,4 @@
-const clone = require('clone')
+clone = require('clone')
 
 let db = {}
 
@@ -22,7 +22,28 @@ const defaultData = {
     category: 'redux',
     voteScore: -5,
     deleted: false
-  }
+  },
+   "6ni6ok3ym7mf1p33lnea": {
+    id: '6ni6ok3ym7mf1p33lnea',
+    timestamp: 1468479767191,
+    title: 'Learn Redux in 11 minutes!',
+    body: 'JK. It takes more than 11 minutes to learn technology.',
+    author: 'thingone',
+    category: 'general',
+    voteScore: -4,
+    deleted: false
+  },
+  "6ni6ok3ym7mf1p33lneb": {
+    id: '6ni6ok3ym7mf1p33lneb',
+    timestamp: 1468479767192,
+    title: 'Learn Redux in 12 minutes!',
+    body: 'JK2. It takes more than 12 minutes to learn technology.',
+    author: 'thingone1',
+    category: 'udacity',
+    voteScore: -3,
+    deleted: false
+  },
+
 }
 
 function getData (token) {
