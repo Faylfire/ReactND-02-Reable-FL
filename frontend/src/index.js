@@ -6,10 +6,10 @@ import registerServiceWorker from './registerServiceWorker';
 import { Provider } from 'react-redux'
 import logger from 'redux-logger'
 import thunk from 'redux-thunk'
-import configStore from './store/configStore.js'
+import { configStore, history } from './store/configStore.js'
 import * as dataAccessAPI from './utils/dataAccessAPI.js'
 import { BrowserRouter } from 'react-router-dom'
-
+import { ConnectedRouter } from 'connected-react-router'
 
 
 function getInitialState(){
@@ -38,9 +38,9 @@ function getInitialState(){
 		.then(store => {
 			ReactDOM.render(
 				<Provider store={store}>
-					<BrowserRouter>
+					<ConnectedRouter history={history}>
 						<App />
-					</BrowserRouter>
+					</ConnectedRouter>
 				</Provider>,
 				document.getElementById('root'));
 

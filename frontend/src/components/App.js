@@ -6,7 +6,10 @@ import * as dataAccessAPI from '../utils/dataAccessAPI.js'
 import sortBy from 'sort-by'
 import { connect } from 'react-redux'
 import { updatePost, removePost, updateComment, removeComment, setFilter } from '../actions'
-import { Link, NavLink, Route } from 'react-router-dom'
+import { Link, NavLink, Route, Switch} from 'react-router-dom'
+import TestParams from './TestParams.js'
+import PostDetails from './PostDetails.js'
+import ConnectedSwitch from './ConnectedSwitch.js'
 
 class App extends Component {
 
@@ -27,8 +30,7 @@ class App extends Component {
         return (c.deleted !== true && (c.category == viewFilter.category || viewFilter.category == 'all'))
       })
     postsList.sort(sortBy('-voteScore'))
-    console.log(this.props)
-    console.log(viewFilter)
+    console.log(postsList)
     const all = [{name:'all', path:''}]
     //let a = dataAccessAPI.delPost("8xf0y6ziyjabvozdd253nd")
     let enhancedCategories = [...all,...categories]
@@ -52,30 +54,12 @@ class App extends Component {
           </ul>
         </nav>
 
-        <ol className='contact-list'>
-          {postsList.map((post, index) =>
-            <li key={post.id} className='contact-list-item'>
-              <div className='contact-avatar' style={{
-                backgroundImage: `url(${getImg(post)})`
-                }}/>
-              <div className='vote-block' style={{
-                backgroundImage: `url("http://localhost:3001/reduxlogo.svg")`
-                }}><span className='rank'>{index}</span></div>
-              <div className="contact-details">
-                <h3><a href="/">{post.title}</a></h3>
-                <p>{`Submitted on ${getDate(post.timestamp)}`}</p>
-                <p className="post-author">{`by ${post.author}`}</p>
-                <p className="post-author">{`Vote Score: ${post.voteScore}`}</p>
-              </div>
-              <button className='contact-remove' onClick={()=> deletePost({postID:post.id})}>
-                Remove
-              </button>
-            </li>
-          )}
-        </ol>
 
-
-
+        <Switch>
+          <Route exact path="/" component={TestParams}/>
+          <Route exact path='/:category/:number' component={PostDetails}/>
+          <Route path='/:category' component={TestParams}/>
+        </Switch>
 
       </div>
     );
