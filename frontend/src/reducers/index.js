@@ -4,6 +4,9 @@ import {
 	UPDATE_COMMENT,
 	REMOVE_COMMENT,
     SET_FILTER,
+    COMMENTS_FETCH_DATA_SUCCESS,
+    COMMENTS_IS_LOADING,
+    COMMENTS_HAS_ERRORED,
 } from '../actions'
 import { combineReducers } from 'redux'
 
@@ -156,7 +159,6 @@ function categories (state = {}, action) {
 
 function viewFilter ( state = {category: 'all'}, action) {
     const { category } = action
-    console.log(action)
     switch(action.type) {
         case SET_FILTER:
             return {
@@ -167,6 +169,37 @@ function viewFilter ( state = {category: 'all'}, action) {
     }
 
 }
+/* Comment loading */
+
+export function commentsHasErrored(state = false, action) {
+    switch (action.type) {
+        case COMMENTS_HAS_ERRORED:
+            return action.hasErrored
+
+        default:
+            return state
+    }
+}
+
+export function commentsIsLoading(state = false, action) {
+    switch (action.type) {
+        case COMMENTS_IS_LOADING:
+            return action.isLoading
+
+        default:
+            return state
+    }
+}
+
+export function items(state = [], action) {
+    switch (action.type) {
+        case COMMENTS_FETCH_DATA_SUCCESS:
+            return action.comments
+
+        default:
+            return state;
+    }
+}
 
 
 export default combineReducers({
@@ -174,4 +207,7 @@ export default combineReducers({
 	comments,
 	categories,
     viewFilter,
+    commentsIsLoading,
+    commentsHasErrored,
+    items
 });

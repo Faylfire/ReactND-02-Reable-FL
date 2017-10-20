@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, NavLink, Route } from 'react-router-dom'
-import { updatePost, removePost, updateComment, removeComment, setFilter } from '../actions'
+import { updatePost, removePost, updateComment, removeComment, setFilter, commentsFetchData } from '../actions'
 import * as dataAccessAPI from '../utils/dataAccessAPI.js'
 import { getImg, getDate} from '../utils/helper.js'
 import sortBy from 'sort-by'
@@ -32,6 +32,9 @@ const PostDetails = (props) => {
       <em>There should be a post here!</em>
       {postsList.map((post, index) =>
         <div key={post.id} className='post-item'>
+          <div className='contact-avatar' style={{
+            backgroundImage: `url(${getImg(post)})`
+          }}/>
           <h3>{post.title}</h3>
           <p>{`Submitted on ${getDate(post.timestamp)}`}</p>
           <p className="post-author">{`by ${post.author}`}</p>
@@ -46,7 +49,9 @@ const PostDetails = (props) => {
 }
 
 
-function mapStateToProps ({ posts, comments, categories, viewFilter, router }) {
+function mapStateToProps ({ posts,
+  comments, categories, viewFilter, router,
+  commentsIsLoading, commentsHasErrored, items }) {
 
   return {
     posts: posts,
@@ -54,6 +59,7 @@ function mapStateToProps ({ posts, comments, categories, viewFilter, router }) {
     categories: categories,
     viewFilter: viewFilter,
     router: router,
+    items: items,
   }
 }
 
@@ -66,7 +72,8 @@ function mapDispatchToProps (dispatch) {
     },
     addComment: (data) => dispatch(updateComment(data)),
     deleteComment: (data) => dispatch(removeComment(data)),
-    setCategory: (data) => dispatch(setFilter(data))
+    setCategory: (data) => dispatch(setFilter(data)),
+    fetchComments: (url) => dispatch(commentsFetchData(url)),
   }
 }
 
