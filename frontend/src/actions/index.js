@@ -1,3 +1,6 @@
+import * as dataAccessAPI from '../utils/dataAccessAPI.js'
+
+
 export const UPDATE_POST = 'UPDATE_POST'
 export const REMOVE_POST = 'REMOVE_POST'
 export const UPDATE_COMMENT = 'UPDATE_COMMENT'
@@ -80,12 +83,14 @@ export function errorAfterFiveSeconds() {
     };
 }
 
-export function commentsFetchData(url) {
+export function commentsFetchData(postID) {
     return (dispatch) => {
         dispatch(commentsIsLoading(true));
 
-        fetch(url)
-            .then((response) => {
+
+
+        dataAccessAPI.getComments(postID)
+        	.then((response) => {
                 if (!response.ok) {
                     throw Error(response.statusText);
                 }

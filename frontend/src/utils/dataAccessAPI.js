@@ -25,7 +25,17 @@ export const delPost = (postID) =>
   fetch(`${api}/posts/${postID}`, { headers: headers, method:'delete'} )
     .then( (res) => { return(res) })
     .then((data) => {
-    console.log(data)
     //console.log('Timestamp: ' + Date.now())
     return data
   })
+
+export const delComment = (commentID) =>
+  fetch(`${api}/comments/${commentID}`, { headers: headers, method:'delete'} )
+    .then( (res) => { return(res) })
+    .then((data) => {
+    return data
+  })
+
+export const getComments = (postID) =>
+  fetch(`${api}/posts/${postID}/comments`, { headers: headers,} )
+    .then( (res) => { return(res) })

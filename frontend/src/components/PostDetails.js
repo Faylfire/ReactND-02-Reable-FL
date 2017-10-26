@@ -5,6 +5,7 @@ import * as dataAccessAPI from '../utils/dataAccessAPI.js'
 import { getImg, getDate} from '../utils/helper.js'
 import sortBy from 'sort-by'
 import { connect } from 'react-redux'
+import ListComments from './ListComments.js'
 
 
 const PostDetails = (props) => {
@@ -31,19 +32,34 @@ const PostDetails = (props) => {
 		<div className='post-details'>
       <em>There should be a post here!</em>
       {postsList.map((post, index) =>
-        <div key={post.id} className='post-item'>
-          <div className='contact-avatar' style={{
-            backgroundImage: `url(${getImg(post)})`
-          }}/>
-          <h3>{post.title}</h3>
-          <p>{`Submitted on ${getDate(post.timestamp)}`}</p>
-          <p className="post-author">{`by ${post.author}`}</p>
-          <p className="post-author">{`Vote Score: ${post.voteScore}`}</p>
-          <div>
-          <p>{post.body}</p>
+        <div key={post.id}>
+          <div className='post-item'>
+            <div className='post-heading'>
+              <div className='contact-avatar' style={{
+                backgroundImage: `url(${getImg(post)})`
+              }}/>
+              <h3>{post.title}</h3>
+              <p>{`Submitted on ${getDate(post.timestamp)}`}</p>
+              <p className="post-author">{`by ${post.author}`}</p>
+              <p className="post-author">{`Vote Score: ${post.voteScore}`}</p>
+              <button className='contact-remove' onClick={()=> deletePost({postID:post.id})}>
+                Remove
+              </button>
+            </div>
+            <div className='post-body'>
+              <p>{post.body}</p>
+            </div>
+
           </div>
+          <div className='post-comment-count'>
+            <h4>{`${post.commentCount} comments`}</h4>
+          </div>
+          <ListComments postID={post.id} />
         </div>
+
       )}
+
+
 		</div>
 		)
 }

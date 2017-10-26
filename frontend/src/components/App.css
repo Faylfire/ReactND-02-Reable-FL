@@ -230,6 +230,22 @@
 .post-item {
   padding: 10px;
   background: white;
+  display:block;
+}
+
+.post-heading {
+  background: white;
+  display: flex;
+  border-bottom:1px solid #d5d8df;;
+}
+.post-heading p{
+  margin:10px;
+}
+
+.post-body {
+  padding: 10px;
+  background: white;
+  text-align:left;
 }
 
 @media (min-width: 600px) {
@@ -238,4 +254,5 @@
     border: 1px solid #d5d8df;
     border-radius: 4px;
   }
+
 }
