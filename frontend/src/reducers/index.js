@@ -7,6 +7,12 @@ import {
     COMMENTS_FETCH_DATA_SUCCESS,
     COMMENTS_IS_LOADING,
     COMMENTS_HAS_ERRORED,
+    VOTE_POST_UP,
+    VOTE_POST_DOWN,
+    VOTE_COMMENT_UP,
+    VOTE_COMMENT_DOWN,
+    OPEN_MODAL,
+    CLOSE_MODAL,
 } from '../actions'
 import { combineReducers } from 'redux'
 
@@ -107,6 +113,22 @@ function posts (state = {}, action) {
 				...state,
 				[postID]: post
 			}
+        case VOTE_POST_UP:
+            return {
+                ...state,
+                [postID]:{
+                    ...state[postID],
+                    voteScore: state[postID].voteScore + 1
+                }
+            }
+        case VOTE_POST_DOWN:
+            return {
+                ...state,
+                [postID]:{
+                    ...state[postID],
+                    voteScore: state[postID].voteScore - 1
+                }
+            }
 		case REMOVE_POST:
 			return {
 				...state,
@@ -121,7 +143,7 @@ function posts (state = {}, action) {
 
 }
 
-
+/*
 function comments (state = {}, action) {
 	const {commentID, comment } = action
 
@@ -140,12 +162,28 @@ function comments (state = {}, action) {
 					deleted: true
 				}
 			}
+        case VOTE_COMMENT_UP:
+            return {
+                ...state,
+                [commentID]:{
+                    ...state[commentID],
+                    voteScore: state[commentID].voteScore + 1
+                }
+            }
+        case VOTE_COMMENT_DOWN:
+            return {
+                ...state,
+                [commentID]:{
+                    ...state[commentID],
+                    voteScore: state[commentID].voteScore - 1
+                }
+            }
 		default:
 			return state
 	}
 
 }
-
+*/
 
 function categories (state = {}, action) {
 
@@ -191,11 +229,55 @@ export function commentsIsLoading(state = false, action) {
     }
 }
 
-export function items(state = [], action) {
+export function items(state = {}, action) {
+    const {commentID, comment } = action
+
     switch (action.type) {
         case COMMENTS_FETCH_DATA_SUCCESS:
             return action.comments
+        case UPDATE_COMMENT:
+            return {
+                ...state,
+                [commentID]: comment
+            }
+        case REMOVE_COMMENT:
+            return {
+                ...state,
+                [commentID]:{
+                    ...state[commentID],
+                    deleted: true
+                }
+            }
+        case VOTE_COMMENT_UP:
+            return {
+                ...state,
+                [commentID]:{
+                    ...state[commentID],
+                    voteScore: state[commentID].voteScore + 1
+                }
+            }
+        case VOTE_COMMENT_DOWN:
+            return {
+                ...state,
+                [commentID]:{
+                    ...state[commentID],
+                    voteScore: state[commentID].voteScore - 1
+                }
+            }
+        default:
+            return state;
+    }
+}
 
+
+export function modalOpen(state = false, action) {
+    const {elemType,elemID } = action
+
+    switch (action.type) {
+        case OPEN_MODAL:
+            return true
+        case CLOSE_MODAL:
+            return false
         default:
             return state;
     }
@@ -204,10 +286,10 @@ export function items(state = [], action) {
 
 export default combineReducers({
 	posts,
-	comments,
 	categories,
     viewFilter,
     commentsIsLoading,
     commentsHasErrored,
-    items
+    items,
+    modalOpen
 });

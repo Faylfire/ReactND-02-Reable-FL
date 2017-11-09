@@ -10,6 +10,10 @@ import { Link, NavLink, Route, Switch} from 'react-router-dom'
 import TestParams from './TestParams.js'
 import PostDetails from './PostDetails.js'
 import ConnectedSwitch from './ConnectedSwitch.js'
+import EditPostModal from './EditPostModal.js'
+//import ModalExampleControlled from './modaltest.js'
+
+
 
 class App extends Component {
 
@@ -35,6 +39,11 @@ class App extends Component {
     //let a = dataAccessAPI.delPost("8xf0y6ziyjabvozdd253nd")
     let enhancedCategories = [...all,...categories]
 
+    let options = [...categories].reduce((options, category) => {
+      options.push({key:category.name, text: capitalize(category.name), value:category.name})
+      return options
+    }, [])
+
     return (
       <div className="App">
         <div className="App-header">
@@ -53,14 +62,12 @@ class App extends Component {
             )}
           </ul>
         </nav>
-
-
+        <EditPostModal />
         <Switch>
           <Route exact path="/" component={TestParams}/>
           <Route exact path='/:category/:number' component={PostDetails}/>
           <Route path='/:category' component={TestParams}/>
         </Switch>
-
       </div>
     );
   }

@@ -39,3 +39,18 @@ export const delComment = (commentID) =>
 export const getComments = (postID) =>
   fetch(`${api}/posts/${postID}/comments`, { headers: headers,} )
     .then( (res) => { return(res) })
+
+
+export const voteUp = (elemID, elemType) =>
+  fetch(`${api}/${elemType}/${elemID}`, { headers: headers, method:'POST'} )
+    .then( (res) => { return(res) })
+    .then((data) => {
+    return data
+  })
+
+export const voteDown = (elemID, elemType) =>
+  fetch(`${api}/${elemType}/${elemID}`, { headers: headers, method:'POST'} )
+    .then( (res) => { return(res) })
+    .then((data) => {
+    return data
+  })

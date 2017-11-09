@@ -6,6 +6,7 @@ import { getImg, getDate} from '../utils/helper.js'
 import sortBy from 'sort-by'
 import { connect } from 'react-redux'
 import ListComments from './ListComments.js'
+import VoteScore from './VoteScore.js'
 
 
 const PostDetails = (props) => {
@@ -38,10 +39,20 @@ const PostDetails = (props) => {
               <div className='contact-avatar' style={{
                 backgroundImage: `url(${getImg(post)})`
               }}/>
-              <h3>{post.title}</h3>
-              <p>{`Submitted on ${getDate(post.timestamp)}`}</p>
-              <p className="post-author">{`by ${post.author}`}</p>
-              <p className="post-author">{`Vote Score: ${post.voteScore}`}</p>
+              <VoteScore
+                className='post-detail-vote'
+                elemID={post.id}
+                elemType='posts'
+              />
+              <div className="contact-details">
+                <h3>
+                  <Link
+                    to={`/${post.category}/${post.id}`}
+                    onClick={()=> setCategory({category:post.category})}
+                  >{post.title}</Link></h3>
+                <p>{`Submitted on ${getDate(post.timestamp)}`}</p>
+                <p className="post-author">{`by ${post.author}`}</p>
+              </div>
               <button className='contact-remove' onClick={()=> deletePost({postID:post.id})}>
                 Remove
               </button>
@@ -52,7 +63,10 @@ const PostDetails = (props) => {
 
           </div>
           <div className='post-comment-count'>
-            <h4>{`${post.commentCount} comments`}</h4>
+            {post.commentCount == 1 ?
+              <h4>{`${post.commentCount} comment`}</h4> :
+              <h4>{`${post.commentCount} comments`}</h4>
+            }
           </div>
           <ListComments postID={post.id} />
         </div>

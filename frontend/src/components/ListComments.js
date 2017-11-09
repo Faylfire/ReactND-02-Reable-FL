@@ -6,6 +6,8 @@ import { connect } from 'react-redux'
 import { updatePost, removePost, } from '../actions'
 import { Link } from 'react-router-dom'
 import { updateComment, removeComment, setFilter, commentsFetchData } from '../actions'
+import VoteScore from './VoteScore.js'
+import { Button, Icon, Label } from 'semantic-ui-react'
 
 
 
@@ -37,15 +39,21 @@ class ListComments extends Component {
     return (
       <div>
   		<ol className='contact-list'>
-        {items.length == 0 ?
+        {Object.keys(items).length === 0 ?
           <div className='nothing-here'>
-            <em>There doesn't seem to be anything here...</em>
+            <em>Add a comment!</em>
           </div> :
-          items.map((comment, index) =>
+          [...Object.values(items)].map((comment, index) =>
           <li key={comment.id} >
             <div className='post-item'>
               <div className='post-heading'>
-                <p className="post-author"><strong>{comment.author}</strong></p>
+                <VoteScore
+                  elemID={comment.id}
+                  elemType='comments'
+                />
+                <Label>
+                  <Icon name='comment outline' /><strong>{comment.author}</strong>
+                </Label>
                 <p>{`Submitted on ${getDate(comment.timestamp)}`}</p>
                 <p className="post-author">{`Vote Score: ${comment.voteScore}`}</p>
                 <button className='contact-remove' onClick={()=> deleteComment({commentID:comment.id})}>

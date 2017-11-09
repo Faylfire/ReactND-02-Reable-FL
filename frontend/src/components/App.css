@@ -58,7 +58,7 @@
   width: 100%;
   top: 0;
   /*border-bottom: 1px solid #d5d8df;*/
-  display: flex;
+  display:flex;
 }
 
 .search-contacts {
@@ -131,15 +131,6 @@
   flex-shrink: 0;
 }
 
-.vote-block {
-  width: 60px;
-  height: 60px;
-  /*border-left: 1px solid #eee;*/
-  margin: auto 20px auto auto;
-  background-repeat: no-repeat;
-  background-size:cover;
-  border-radius: 0;
-}
 
 .contact-details {
   padding-left: 20px;
@@ -234,17 +225,16 @@
 }
 
 .post-heading {
+  padding: 20px;
   background: white;
   display: flex;
   border-bottom:1px solid #d5d8df;;
 }
-.post-heading p{
-  margin:10px;
-}
+
 
 .post-body {
   padding: 10px;
-  background: white;
+  background: #f1e9d2; /*parchemnt color*/
   text-align:left;
 }
 

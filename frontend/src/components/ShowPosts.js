@@ -5,6 +5,7 @@ import * as dataAccessAPI from '../utils/dataAccessAPI.js'
 import { getImg, getDate} from '../utils/helper.js'
 import sortBy from 'sort-by'
 import { connect } from 'react-redux'
+import VoteScore from './VoteScore.js'
 
 
 
@@ -35,9 +36,10 @@ const ShowPosts = (props) => {
               <div className='contact-avatar' style={{
                 backgroundImage: `url(${getImg(post)})`
                 }}/>
-              <div className='vote-block' style={{
-                backgroundImage: `url("http://localhost:3001/reduxlogo.svg")`
-                }}><span className='rank'>{index}</span></div>
+              <VoteScore
+                elemID={post.id}
+                elemType='posts'
+              />
               <div className="contact-details">
                 <h3>
                 	<Link
@@ -45,8 +47,8 @@ const ShowPosts = (props) => {
                   	onClick={()=> setCategory({category:post.category})}
                 	>{post.title}</Link></h3>
                 <p>{`Submitted on ${getDate(post.timestamp)}`}</p>
-                <p className="post-author">{`by ${post.author}`}</p>
-                <p className="post-author">{`Vote Score: ${post.voteScore}`}</p>
+                <p className="post-author"><strong>{`by ${post.author}`}</strong></p>
+                <p className="post-author">{`${post.commentCount} comments`}</p>
               </div>
               <button className='contact-remove' onClick={()=> deletePost({postID:post.id})}>
                 Remove

@@ -7,10 +7,20 @@ export const UPDATE_COMMENT = 'UPDATE_COMMENT'
 export const REMOVE_COMMENT = 'REMOVE_COMMENT'
 export const SET_FILTER = 'SET_FILTER'
 
+
 export const COMMENTS_FETCH_DATA_SUCCESS = 'COMMENTS_FETCH_DATA_SUCCESS'
 export const COMMENTS_IS_LOADING = 'COMMENTS_IS_LOADING'
 export const COMMENTS_HAS_ERRORED = 'COMMENTS_HAS_ERRORED'
 
+export const VOTE_POST_UP = 'VOTE_POST_UP'
+export const VOTE_POST_DOWN = 'VOTE_POST_DOWN'
+export const VOTE_COMMENT_UP = 'VOTE_COMMENT_UP'
+export const VOTE_COMMENT_DOWN = 'VOTE_COMMENT_DOWN'
+
+export const OPEN_MODAL = 'OPEN_MODAL'
+export const CLOSE_MODAL = 'CLOSE_MODAL'
+
+//Post Actions
 export function updatePost({postID, post}) {
 	return {
 		type: UPDATE_POST,
@@ -26,6 +36,21 @@ export function removePost({postID}) {
 	}
 }
 
+export function votePostUp({postID}) {
+	return {
+		type: VOTE_POST_UP,
+		postID,
+	}
+}
+
+export function votePostDown({postID}) {
+	return {
+		type: VOTE_POST_DOWN,
+		postID,
+	}
+}
+
+//Comment Actions
 export function updateComment({commentID, comment}) {
 	return {
 		type: UPDATE_COMMENT,
@@ -40,6 +65,24 @@ export function removeComment({commentID}) {
 		commentID,
 	}
 }
+
+export function voteCommentUp({commentID}) {
+	return {
+		type: VOTE_COMMENT_UP,
+		commentID,
+	}
+}
+
+export function voteCommentDown({commentID}) {
+	return {
+		type: VOTE_COMMENT_DOWN,
+		commentID,
+	}
+}
+
+
+
+
 
 export function setFilter({category}) {
 	return {
@@ -96,11 +139,33 @@ export function commentsFetchData(postID) {
                 }
 
                 dispatch(commentsIsLoading(false));
-
-                return response;
+								return response
             })
             .then((response) => response.json())
+            .then((items) => {
+
+                let posts = items.reduce((posts, post)=>{
+									posts[post.id]=post
+									return posts
+								}, {})
+                return posts
+            })
             .then((items) => dispatch(commentsFetchDataSuccess(items)))
             .catch(() => dispatch(commentsHasErrored(true)));
+    };
+}
+
+//Modal_Open and Modal Close
+export function openModal({elemType, elemID}) {
+    return {
+        type: OPEN_MODAL,
+        elemType:elemType,
+        elemID
+    };
+}
+
+export function closeModal() {
+    return {
+        type: CLOSE_MODAL,
     };
 }

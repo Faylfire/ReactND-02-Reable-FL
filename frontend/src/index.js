@@ -10,6 +10,7 @@ import { configStore, history } from './store/configStore.js'
 import * as dataAccessAPI from './utils/dataAccessAPI.js'
 import { BrowserRouter } from 'react-router-dom'
 import { ConnectedRouter } from 'connected-react-router'
+import 'semantic-ui-css/semantic.min.css'
 
 
 function getInitialState(){
