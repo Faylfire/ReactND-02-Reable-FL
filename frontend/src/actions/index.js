@@ -20,6 +20,9 @@ export const VOTE_COMMENT_DOWN = 'VOTE_COMMENT_DOWN'
 export const OPEN_MODAL = 'OPEN_MODAL'
 export const CLOSE_MODAL = 'CLOSE_MODAL'
 
+export const EDIT_COMMENT = 'EDIT_COMMENT'
+export const EDIT_POST = 'EDIT_POST'
+
 //Post Actions
 export function updatePost({postID, post}) {
 	return {
@@ -159,7 +162,7 @@ export function commentsFetchData(postID) {
 export function openModal({elemType, elemID}) {
     return {
         type: OPEN_MODAL,
-        elemType:elemType,
+        elemType,
         elemID
     };
 }
@@ -169,3 +172,4 @@ export function closeModal() {
         type: CLOSE_MODAL,
     };
 }
+

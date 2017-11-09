@@ -104,6 +104,12 @@ const defaultPosts= {
 
 }
 
+const defaultModal = {
+    modalOpen:false,
+    elemType:'',
+    elemID:''
+}
+
 function posts (state = {}, action) {
 	const {postID, post } = action
 
@@ -270,14 +276,19 @@ export function items(state = {}, action) {
 }
 
 
-export function modalOpen(state = false, action) {
+
+export function modal(state = defaultModal, action) {
     const {elemType,elemID } = action
 
     switch (action.type) {
         case OPEN_MODAL:
-            return true
+            return {
+                modalOpen: true,
+                elemType: elemType,
+                elemID: elemID
+            }
         case CLOSE_MODAL:
-            return false
+            return defaultModal
         default:
             return state;
     }
@@ -291,5 +302,5 @@ export default combineReducers({
     commentsIsLoading,
     commentsHasErrored,
     items,
-    modalOpen
+    modal
 });

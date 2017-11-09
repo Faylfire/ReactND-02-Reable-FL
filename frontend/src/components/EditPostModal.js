@@ -26,17 +26,20 @@ class EditPostModal extends Component {
 
   handleOpen = () => {
   	this.setState({modalOpen:true})
-  	this.props.openMod('post')}
+  	this.props.openMod({elemType:'comments', elemID:'894tuq4ut84ut8v4t8wun89g'})}
 
   handleSubmit = () => { this.props.closeMod()}
 
   handleClose = () => {
   	this.setState({modalOpen:false})
+  	this.props.closeMod()
   }
 
 	render() {
-		let { items, posts, elemID, elemType, options, closeMod} = this.props
-    let {modalOpen} = this.state
+		let { items, posts, modal, options, closeMod} = this.props
+    //let {modalOpen} = this.state
+    let modalOpen = modal.modalOpen
+    let {elemType, elemID} = modal
     let editElement = {}
 
 		if (elemType === 'posts'){
@@ -81,19 +84,20 @@ class EditPostModal extends Component {
 }
 
 
-function mapStateToProps ({ posts, items, modalOpen }) {
+function mapStateToProps ({ posts, items, modal }) {
 
   return {
     posts: posts,
     items: items,
-    modalOpen:modalOpen,
+    modal: modal,
   }
 }
 
 function mapDispatchToProps (dispatch) {
   return {
     setCategory: (data) => dispatch(setFilter(data)),
-    openMod: (data) => dispatch(openModal({elemType:data.elemType})),
+    openMod: (data) => dispatch(openModal({elemType:data.elemType,
+    																			 elemID:data.elemID})),
     closeMod: () => dispatch(closeModal()),
   }
 }

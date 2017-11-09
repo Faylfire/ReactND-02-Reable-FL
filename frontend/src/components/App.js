@@ -5,7 +5,7 @@ import { genID, getImg, getDate, testCata, capitalize} from '../utils/helper.js'
 import * as dataAccessAPI from '../utils/dataAccessAPI.js'
 import sortBy from 'sort-by'
 import { connect } from 'react-redux'
-import { updatePost, removePost, updateComment, removeComment, setFilter } from '../actions'
+import { updatePost, removePost, updateComment, removeComment, setFilter, openModal } from '../actions'
 import { Link, NavLink, Route, Switch} from 'react-router-dom'
 import TestParams from './TestParams.js'
 import PostDetails from './PostDetails.js'
@@ -28,7 +28,7 @@ class App extends Component {
 
   render() {
     //const { backend } = this.state
-    const {posts, comments, categories, viewFilter, addPost, addComment, deleteComment, deletePost, setCategory} = this.props
+    const {posts, comments, categories, viewFilter, addPost, addComment, deleteComment, deletePost, setCategory, openMod} = this.props
     let catas = testCata.categories
     let postsList = [...Object.values(posts)].filter((c) => {
         return (c.deleted !== true && (c.category == viewFilter.category || viewFilter.category == 'all'))
@@ -63,6 +63,11 @@ class App extends Component {
           </ul>
         </nav>
         <EditPostModal />
+                        <button
+
+                  onClick={() => this.props.openMod({elemType:'posts', elemID:'8xf0y6ziyjabvozdd253nd'})}>
+                    Edit
+                </button>
         <Switch>
           <Route exact path="/" component={TestParams}/>
           <Route exact path='/:category/:number' component={PostDetails}/>
@@ -93,7 +98,9 @@ function mapDispatchToProps (dispatch) {
     },
     addComment: (data) => dispatch(updateComment(data)),
     deleteComment: (data) => dispatch(removeComment(data)),
-    setCategory: (data) => dispatch(setFilter(data))
+    setCategory: (data) => dispatch(setFilter(data)),
+    openMod: (data) => dispatch(openModal({elemType:data.elemType,
+                                           elemID:data.elemID})),
   }
 }
 
