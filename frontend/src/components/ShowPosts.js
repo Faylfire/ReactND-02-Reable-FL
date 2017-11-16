@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link, NavLink, Route, Switch } from 'react-router-dom'
-import { updatePost, removePost, updateComment, removeComment, setFilter } from '../actions'
+import { updatePost, removePost, updateComment, removeComment, setFilter, openModal } from '../actions'
 import * as dataAccessAPI from '../utils/dataAccessAPI.js'
 import { getImg, getDate} from '../utils/helper.js'
 import sortBy from 'sort-by'
 import { connect } from 'react-redux'
 import VoteScore from './VoteScore.js'
-
+import { Button, Icon, Label } from 'semantic-ui-react'
 
 
 const ShowPosts = (props) => {
@@ -17,13 +17,13 @@ const ShowPosts = (props) => {
 	if (Object.keys(props.match.params).length === 0){
 		category = ''
 	}*/
-  const {posts, router, addPost, addComment, deleteComment, deletePost, setCategory} = props
+  const {sortType, posts, router, addPost, addComment, deleteComment, deletePost, setCategory, openMod} = props
   let category = router.location.pathname.slice(1)
   let postsList = [...Object.values(posts)].filter((c) => {
         return (c.deleted !== true && (c.category == category || category == ''))
       })
-
   console.log("In SHOW POSTS")
+  postsList.sort(sortBy(sortType))
 	return (
 		<div>
 			  <ol className='contact-list'>
@@ -50,9 +50,22 @@ const ShowPosts = (props) => {
                 <p className="post-author"><strong>{`by ${post.author}`}</strong></p>
                 <p className="post-author">{`${post.commentCount} comments`}</p>
               </div>
-              <button className='contact-remove' onClick={()=> deletePost({postID:post.id})}>
-                Remove
-              </button>
+              <div className='edit-delete'>
+                <Button icon
+                  onClick={() => openMod({elemType:'posts', elemID:post.id})}
+                  circular='true'
+                  positive
+                  >
+                  <Icon name='edit' />
+                </Button>
+                <Button icon
+                  onClick={()=> deletePost({postID:post.id})}
+                  circular='true'
+                  negative
+                  >
+                  <Icon name='remove' />
+                </Button>
+              </div>
             </li>
           )}
         </ol>
@@ -61,11 +74,12 @@ const ShowPosts = (props) => {
 }
 
 
-function mapStateToProps ({ posts, comments, categories, viewFilter, router }) {
+function mapStateToProps ({ sortType, posts, viewFilter, router }) {
 
   return {
     posts: posts,
     router: router,
+    sortType: sortType,
   }
 }
 
@@ -78,7 +92,9 @@ function mapDispatchToProps (dispatch) {
     },
     addComment: (data) => dispatch(updateComment(data)),
     deleteComment: (data) => dispatch(removeComment(data)),
-    setCategory: (data) => dispatch(setFilter(data))
+    setCategory: (data) => dispatch(setFilter(data)),
+    openMod: (data) => dispatch(openModal({elemType:data.elemType,
+                                           elemID:data.elemID})),
   }
 }
 

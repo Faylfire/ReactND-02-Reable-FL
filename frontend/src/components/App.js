@@ -11,6 +11,7 @@ import TestParams from './TestParams.js'
 import PostDetails from './PostDetails.js'
 import ConnectedSwitch from './ConnectedSwitch.js'
 import EditPostModal from './EditPostModal.js'
+import SortPosts from './SortPosts.js'
 //import ModalExampleControlled from './modaltest.js'
 
 
@@ -28,13 +29,13 @@ class App extends Component {
 
   render() {
     //const { backend } = this.state
-    const {posts, comments, categories, viewFilter, addPost, addComment, deleteComment, deletePost, setCategory, openMod} = this.props
+    const { sortType, posts, categories, viewFilter, addPost, addComment, deleteComment, deletePost, setCategory, openMod} = this.props
     let catas = testCata.categories
-    let postsList = [...Object.values(posts)].filter((c) => {
+    /*let postsList = [...Object.values(posts)].filter((c) => {
         return (c.deleted !== true && (c.category == viewFilter.category || viewFilter.category == 'all'))
       })
-    postsList.sort(sortBy('-voteScore'))
-    console.log(postsList)
+    //postsList.sort(sortBy(sortType))
+    */
     const all = [{name:'all', path:''}]
     //let a = dataAccessAPI.delPost("8xf0y6ziyjabvozdd253nd")
     let enhancedCategories = [...all,...categories]
@@ -62,30 +63,28 @@ class App extends Component {
             )}
           </ul>
         </nav>
-        <EditPostModal />
-                        <button
-
-                  onClick={() => this.props.openMod({elemType:'posts', elemID:'8xf0y6ziyjabvozdd253nd'})}>
-                    Edit
-                </button>
-        <Switch>
-          <Route exact path="/" component={TestParams}/>
-          <Route exact path='/:category/:number' component={PostDetails}/>
-          <Route path='/:category' component={TestParams}/>
-        </Switch>
+        <EditPostModal options={options}/>
+        <div className="sub-body">
+          <SortPosts />
+          <Switch>
+            <Route exact path="/" component={TestParams}/>
+            <Route exact path='/:category/:number' component={PostDetails}/>
+            <Route path='/:category' component={TestParams}/>
+          </Switch>
+        </div>
       </div>
     );
   }
 }
 
 
-function mapStateToProps ({ posts, comments, categories, viewFilter }) {
+function mapStateToProps ({ sortType, posts, categories, viewFilter }) {
 
   return {
     posts: posts,
-    comments: comments,
     categories: categories,
     viewFilter: viewFilter,
+    sortType: sortType,
   }
 }
 

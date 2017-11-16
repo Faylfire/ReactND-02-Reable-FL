@@ -102,8 +102,6 @@
 }
 
 .contact-list {
-  width: 100%;
-  margin: 0;
   padding: 0;
   list-style-type: none;
 }
@@ -118,6 +116,13 @@
     margin: 20px;
     border: 1px solid #d5d8df;
     border-radius: 4px;
+  }
+
+}
+
+@media (max-width: 600px) {
+  .contact-avatar {
+    display:none;
   }
 }
 
@@ -219,6 +224,7 @@
 /*Post Details*/
 
 .post-item {
+  margin:20px;
   padding: 10px;
   background: white;
   display:block;
@@ -240,9 +246,31 @@
 
 @media (min-width: 600px) {
   .post-item {
-    margin: 10px;
+    margin: 20px;
     border: 1px solid #d5d8df;
     border-radius: 4px;
   }
 
+}
+
+.show-posts {
+  clear:left;
+}
+
+.post-details {
+  clear:left;
+}
+
+.edit-delete {
+  margin:auto;
+}
+
+.sort-dropdown {
+  margin:20px;
+  float:left;
+}
+
+.sub-body {
+  max-width: 1600px;
+  margin: auto;
 }

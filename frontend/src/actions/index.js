@@ -23,6 +23,8 @@ export const CLOSE_MODAL = 'CLOSE_MODAL'
 export const EDIT_COMMENT = 'EDIT_COMMENT'
 export const EDIT_POST = 'EDIT_POST'
 
+export const SORT_BY = 'SORT_BY'
+
 //Post Actions
 export function updatePost({postID, post}) {
 	return {
@@ -159,11 +161,12 @@ export function commentsFetchData(postID) {
 }
 
 //Modal_Open and Modal Close
-export function openModal({elemType, elemID}) {
+export function openModal({elemType, elemID, elemNew}) {
     return {
         type: OPEN_MODAL,
         elemType,
-        elemID
+        elemID,
+        elemNew,
     };
 }
 
@@ -173,3 +176,10 @@ export function closeModal() {
     };
 }
 
+//Sort By Dropdown Selection
+export function changeSort(sortBy) {
+	return {
+		type: SORT_BY,
+		sortBy: sortBy
+	}
+}

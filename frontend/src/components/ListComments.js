@@ -5,7 +5,7 @@ import sortBy from 'sort-by'
 import { connect } from 'react-redux'
 import { updatePost, removePost, } from '../actions'
 import { Link } from 'react-router-dom'
-import { updateComment, removeComment, setFilter, commentsFetchData } from '../actions'
+import { updateComment, removeComment, setFilter, commentsFetchData, openModal } from '../actions'
 import VoteScore from './VoteScore.js'
 import { Button, Icon, Label } from 'semantic-ui-react'
 
@@ -20,7 +20,7 @@ class ListComments extends Component {
 
 
 	render() {
-    let { items, isLoading, hasErrored, deleteComment } = this.props
+    let { items, isLoading, hasErrored, deleteComment, openMod } = this.props
 
     if (hasErrored) {
       return (
@@ -55,10 +55,22 @@ class ListComments extends Component {
                   <Icon name='comment outline' /><strong>{comment.author}</strong>
                 </Label>
                 <p>{`Submitted on ${getDate(comment.timestamp)}`}</p>
-                <p className="post-author">{`Vote Score: ${comment.voteScore}`}</p>
-                <button className='contact-remove' onClick={()=> deleteComment({commentID:comment.id})}>
-                  Remove
-                </button>
+                <div className='edit-delete'>
+                  <Button icon
+                    onClick={() => this.props.openMod({elemType:'comments', elemID:comment.id})}
+                    circular='true'
+                    positive
+                    >
+                    <Icon name='edit' />
+                  </Button>
+                  <Button icon
+                    onClick={()=> deleteComment({commentID:comment.id})}
+                    circular='true'
+                    negative
+                    >
+                    <Icon name='remove' />
+                  </Button>
+                </div>
               </div>
               <div className='post-body'>
                 <p>{comment.body}</p>
@@ -102,6 +114,8 @@ function mapDispatchToProps (dispatch) {
     },
     setCategory: (data) => dispatch(setFilter(data)),
     fetchComments: (postID) => dispatch(commentsFetchData(postID)),
+    openMod: (data) => dispatch(openModal({elemType:data.elemType,
+                                           elemID:data.elemID})),
   }
 }
 

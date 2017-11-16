@@ -11,7 +11,7 @@ import PostDetails from './PostDetails.js'
 
 const TestParams = (props) => {
 	//let {category, number} = props.match.params
-	const {posts, comments, categories, router, addPost, addComment, deleteComment, deletePost, setCategory} = props
+	const {sortType, posts, comments, categories, router, addPost, addComment, deleteComment, deletePost, setCategory} = props
 	let category = router.location.pathname.slice(1)
 
 	let path = router.location.pathname.slice(1)
@@ -36,14 +36,14 @@ const TestParams = (props) => {
 	console.log("Posts for: " + id)
 	console.log(postsList)
 	return (
-		<div>
+		<div className="show-posts">
         <ShowPosts />
 		</div>
 		)
 }
 
 
-function mapStateToProps ({ posts, comments, categories, viewFilter, router }) {
+function mapStateToProps ({ sortType, posts, comments, categories, viewFilter, router }) {
 
   return {
     posts: posts,
@@ -51,6 +51,7 @@ function mapStateToProps ({ posts, comments, categories, viewFilter, router }) {
     categories: categories,
     viewFilter: viewFilter,
     router: router,
+    sortType: sortType,
   }
 }
 

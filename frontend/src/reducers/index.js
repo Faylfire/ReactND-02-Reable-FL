@@ -13,6 +13,7 @@ import {
     VOTE_COMMENT_DOWN,
     OPEN_MODAL,
     CLOSE_MODAL,
+    SORT_BY
 } from '../actions'
 import { combineReducers } from 'redux'
 
@@ -107,7 +108,8 @@ const defaultPosts= {
 const defaultModal = {
     modalOpen:false,
     elemType:'',
-    elemID:''
+    elemID:'',
+    elemNew:false,
 }
 
 function posts (state = {}, action) {
@@ -278,20 +280,33 @@ export function items(state = {}, action) {
 
 
 export function modal(state = defaultModal, action) {
-    const {elemType,elemID } = action
+    const {elemType, elemID, elemNew } = action
 
     switch (action.type) {
         case OPEN_MODAL:
             return {
                 modalOpen: true,
                 elemType: elemType,
-                elemID: elemID
+                elemID: elemID,
+                elemNew: elemNew,
             }
         case CLOSE_MODAL:
             return defaultModal
         default:
             return state;
     }
+}
+
+export function sortType(state= '-voteScore', action) {
+    const {sortBy} = action
+
+    switch (action.type) {
+        case SORT_BY:
+            return sortBy
+        default:
+            return state;
+    }
+
 }
 
 
@@ -302,5 +317,6 @@ export default combineReducers({
     commentsIsLoading,
     commentsHasErrored,
     items,
-    modal
+    modal,
+    sortType
 });
