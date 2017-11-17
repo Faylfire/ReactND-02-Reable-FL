@@ -18,6 +18,12 @@ class ListComments extends Component {
     fetchComments(postID)
   }
 
+  componentWillReceiveProps(nextProps){
+    if (nextProps.items.length > this.props.items.length){
+      this.setState({render:true})
+    }
+  }
+
 
 	render() {
     let { items, isLoading, hasErrored, deleteComment, openMod } = this.props
@@ -57,7 +63,7 @@ class ListComments extends Component {
                 <p>{`Submitted on ${getDate(comment.timestamp)}`}</p>
                 <div className='edit-delete'>
                   <Button icon
-                    onClick={() => this.props.openMod({elemType:'comments', elemID:comment.id})}
+                    onClick={() => this.props.openMod({elemType:'comments', elemID:comment.id, elemNew:false})}
                     circular='true'
                     positive
                     >
@@ -115,7 +121,8 @@ function mapDispatchToProps (dispatch) {
     setCategory: (data) => dispatch(setFilter(data)),
     fetchComments: (postID) => dispatch(commentsFetchData(postID)),
     openMod: (data) => dispatch(openModal({elemType:data.elemType,
-                                           elemID:data.elemID})),
+                                           elemID:data.elemID,
+                                           elemNew:data.elemNew})),
   }
 }
 

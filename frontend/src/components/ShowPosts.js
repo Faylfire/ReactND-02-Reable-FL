@@ -52,7 +52,7 @@ const ShowPosts = (props) => {
               </div>
               <div className='edit-delete'>
                 <Button icon
-                  onClick={() => openMod({elemType:'posts', elemID:post.id})}
+                  onClick={() => openMod({elemType:'posts', elemID:post.id, elemNew:false})}
                   circular='true'
                   positive
                   >
@@ -94,7 +94,8 @@ function mapDispatchToProps (dispatch) {
     deleteComment: (data) => dispatch(removeComment(data)),
     setCategory: (data) => dispatch(setFilter(data)),
     openMod: (data) => dispatch(openModal({elemType:data.elemType,
-                                           elemID:data.elemID})),
+                                           elemID:data.elemID,
+                                           elemNew:data.elemNew})),
   }
 }
 

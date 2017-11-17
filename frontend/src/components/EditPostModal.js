@@ -25,59 +25,96 @@ class EditPostModal extends Component {
 					};
   }
 
-  componentDidMount() {
-  	let { items, posts, modal} = this.props
-    //let {modalOpen} = this.state
-    let {elemType, elemID, elemNew} = modal
-    let editElement = {}
-
-    if (elemNew === true) {
-    	if (elemType === 'posts'){
-    		editElement={
-			    id: genID(),
-			    timestamp: Date.now(),
-			    title: '',
-			    body: '',
-			    author: '',
-			    category: '',
-			    voteScore: 0,
-			    deleted: false,
-			    commentCount: 0
-		  	}
-    	} else{
-    		editElement={
-			    id: genID(),
-			    parentId:genID(),
-			    timestamp: Date.now(),
-			    body: '',
-			    author: '',
-			    voteScore: 0,
-			    deleted: false,
-			    parentDeleted: false,
-			  }
-    	}
-
-
-    } else {
-			if (elemType === 'posts'){
-				editElement = posts[elemID]
-			} else if(elemType === 'comments') {
-				editElement = items[elemID]
+  componentWillReceiveProps(nextProps) {
+  	if(nextProps.modal.modalOpen === true){
+	  	let { items, posts, modal} = nextProps
+	    //let {modalOpen} = this.state
+	    let {elemType, elemID, elemNew} = modal
+	    let editElement = {}
+	    console.log(editElement)
+	    console.log('AFTER')
+	    if (elemNew === true) {
+	    	if (elemType === 'posts'){
+	    		editElement={
+				    id: genID(),
+				    timestamp: Date.now(),
+				    title: '',
+				    body: '',
+				    author: '',
+				    category: '',
+			  	}
+	    	} else{
+	    		editElement={
+				    id: genID(),
+				    parentId:genID(),
+				    timestamp: Date.now(),
+				    body: '',
+				    author: '',
+				  }
+	    	}
+	    } else {
+	    	console.log("IN ELSE")
+				if (elemType === 'posts'){
+					editElement = posts[elemID]
+				} else if(elemType === 'comments') {
+					editElement = items[elemID]
+				}
 			}
-		}
-
+			console.log(editElement)
+			this.setState({
+						 title:editElement.title,
+						 body: editElement.body,
+						 author: editElement.author,
+						 category: editElement.category,
+						 editElement:editElement
+			})
+  	}
 
   }
 
 
-  handleChange = (e, { name, value }) => this.setState({ [name]: value })
+  handleChange = (e, { name, value }) => {
+  	this.setState({ [name]: value })
+  }
 
   handleOpen = () => {
   	this.setState({modalOpen:true})
-  	this.props.openMod({elemType:'comments', elemID:'894tuq4ut84ut8v4t8wun89g', elemNew:false})
+  	this.props.openMod({elemType:'posts', elemID:'', elemNew:true})
   }
 
-  handleSubmit = () => { this.props.closeMod()}
+  handleSubmit = () => {
+
+  	let {modal, editComment, editPost} = this.props
+  	let modElement = this.state.editElement
+  	let {title, body, author, category} = this.state
+
+  	if (modal.elemType === 'posts'){
+
+  		modElement['title'] = title
+  		modElement['body'] = body
+  		modElement['author'] = author
+  		modElement['category'] = category
+
+  		if (modal.elemNew === true){
+  			let id = genID()
+  			modElement['id'] = id
+  			modElement['timestamp'] = Date.now()
+  		}
+  		editPost({postID:modElement.id, post:modElement, elemNew:modal.elemNew})
+
+  	} else if(modal.elemType === 'comments'){
+  		modElement['body']=body
+  		modElement['author']=author
+  		if (modal.elemNew === true){
+  			let id = genID()
+  			modElement['id']=id
+  			modElement['timestamp'] = Date.now()
+  		}
+  		editComment({commentID:modElement.id, comment:modElement, elemNew:modal.elemNew})
+  	}
+
+  	this.props.closeMod()
+  }
 
   handleClose = () => {
   	this.setState({modalOpen:false})
@@ -89,22 +126,21 @@ class EditPostModal extends Component {
     //let {modalOpen} = this.state
     let modalOpen = modal.modalOpen
     let {elemType, elemID, elemNew} = modal
-    let editElement = {}
+    /*let editElement = {}
 
 		if (elemType === 'posts'){
 			editElement = posts[elemID]
 		} else if (elemType === 'comments') {
 			editElement = items[elemID]
-		}
+		}*/
 
-		let {title, body, author, category} = editElement
+		let {title, body, author, category} = this.state
 
 		console.log("In Modal")
-		console.log(elemType)
+		console.log("elemType: ", elemType)
 		return (
 			<div>
       <Modal
-        trigger={<Button onClick={this.handleOpen}>Show Modal</Button>}
         open={modalOpen}
         onClose={this.handleClose}
       >
@@ -146,10 +182,30 @@ function mapDispatchToProps (dispatch) {
   return {
     setCategory: (data) => dispatch(setFilter(data)),
     openMod: (data) => dispatch(openModal({elemType:data.elemType,
-    																			 elemID:data.elemID})),
+    																			 elemID:data.elemID,
+    																			 elemNew:data.elemNew})),
     closeMod: () => dispatch(closeModal()),
-    editPost: (data) => dispatch(updatePost(data)),
-    editComment: (data) => dispatch(updateComment(data)),
+    editPost: (data) => {
+    	console.log("In editPost")
+    	console.log(data)
+
+    	if (data.elemNew === true){
+    		dataAccessAPI.addPost(data.post, 'posts')
+    	} else {
+    		dataAccessAPI.editPost(data.post.id, 'posts', data.post.body, data.post.title)
+    	}
+    	dispatch(updatePost({postID:data.postID, post:data.post}))
+    	//dispatch(updatePost({postID:data.postID, post:data.post}))
+    },
+    editComment: (data) => {
+    	if (data.elemNew === true){
+    		dataAccessAPI.addComment(data.comment, 'comments')
+    	} else {
+    		dataAccessAPI.editComment(data.comment.id, 'comments', data.comment.body, data.comment.timestamp)
+    	}
+
+    	dispatch(updateComment({commentID:data.commentID, comment:data.comment}))
+    },
   }
 }
 

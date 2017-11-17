@@ -12,7 +12,8 @@ import PostDetails from './PostDetails.js'
 import ConnectedSwitch from './ConnectedSwitch.js'
 import EditPostModal from './EditPostModal.js'
 import SortPosts from './SortPosts.js'
-//import ModalExampleControlled from './modaltest.js'
+import { Button} from 'semantic-ui-react'
+
 
 
 
@@ -26,6 +27,7 @@ class App extends Component {
     };
   }
 
+  handleOpen = () => this.props.openMod({elemType:'posts', elemID:'', elemNew:true})
 
   render() {
     //const { backend } = this.state
@@ -64,7 +66,10 @@ class App extends Component {
           </ul>
         </nav>
         <EditPostModal options={options}/>
-        <div className="sub-body">
+        <div className='sub-body'>
+          <div className='edit-post-modal'>
+            <Button content='Add New Post' labelPosition='left' icon='add' onClick={this.handleOpen}/>
+          </div>
           <SortPosts />
           <Switch>
             <Route exact path="/" component={TestParams}/>
@@ -99,7 +104,8 @@ function mapDispatchToProps (dispatch) {
     deleteComment: (data) => dispatch(removeComment(data)),
     setCategory: (data) => dispatch(setFilter(data)),
     openMod: (data) => dispatch(openModal({elemType:data.elemType,
-                                           elemID:data.elemID})),
+                                           elemID:data.elemID,
+                                           elemNew:data.elemNew})),
   }
 }
 

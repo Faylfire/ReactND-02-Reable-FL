@@ -265,6 +265,11 @@
   margin:auto;
 }
 
+.edit-post-modal{
+  float:right;
+  margin:20px;
+}
+
 .sort-dropdown {
   margin:20px;
   float:left;
@@ -273,4 +278,5 @@
 .sub-body {
   max-width: 1600px;
   margin: auto;
+  padding:10px;
 }
