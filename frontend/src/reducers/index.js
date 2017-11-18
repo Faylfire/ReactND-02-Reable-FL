@@ -110,6 +110,7 @@ const defaultModal = {
     elemType:'',
     elemID:'',
     elemNew:false,
+    parentId:'',
 }
 
 function posts (state = {}, action) {
@@ -280,7 +281,7 @@ export function items(state = {}, action) {
 
 
 export function modal(state = defaultModal, action) {
-    const {elemType, elemID, elemNew } = action
+    const {elemType, elemID, elemNew, parentId} = action
 
     switch (action.type) {
         case OPEN_MODAL:
@@ -289,6 +290,7 @@ export function modal(state = defaultModal, action) {
                 elemType: elemType,
                 elemID: elemID,
                 elemNew: elemNew,
+                parentId: parentId
             }
         case CLOSE_MODAL:
             return defaultModal

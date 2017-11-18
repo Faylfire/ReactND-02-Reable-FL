@@ -253,6 +253,10 @@
 
 }
 
+.comment-list{
+  clear:right;
+}
+
 .show-posts {
   clear:left;
 }
@@ -265,9 +269,14 @@
   margin:auto;
 }
 
-.edit-post-modal{
+.new-post-modal{
   float:right;
   margin:20px;
+}
+
+.new-comment-modal{
+  float:right;
+  margin:0px 20px 0px 20px;
 }
 
 .sort-dropdown {

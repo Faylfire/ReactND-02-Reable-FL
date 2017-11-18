@@ -161,12 +161,13 @@ export function commentsFetchData(postID) {
 }
 
 //Modal_Open and Modal Close
-export function openModal({elemType, elemID, elemNew}) {
+export function openModal({elemType, elemID, elemNew, parentId}) {
     return {
         type: OPEN_MODAL,
         elemType,
         elemID,
         elemNew,
+        parentId,
     };
 }
 

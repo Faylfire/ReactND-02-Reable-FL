@@ -46,7 +46,7 @@ class EditPostModal extends Component {
 	    	} else{
 	    		editElement={
 				    id: genID(),
-				    parentId:genID(),
+				    parentId:modal.parentId,
 				    timestamp: Date.now(),
 				    body: '',
 				    author: '',
@@ -77,10 +77,11 @@ class EditPostModal extends Component {
   	this.setState({ [name]: value })
   }
 
+  /*
   handleOpen = () => {
   	this.setState({modalOpen:true})
   	this.props.openMod({elemType:'posts', elemID:'', elemNew:true})
-  }
+  }*/
 
   handleSubmit = () => {
 
@@ -144,7 +145,7 @@ class EditPostModal extends Component {
         open={modalOpen}
         onClose={this.handleClose}
       >
-      	<Modal.Header>Add/Edit Post</Modal.Header>
+      	<Modal.Header>Add/Edit {elemType==='posts'? 'Post' : 'Comment'}</Modal.Header>
 		    <Modal.Content>
 		      <Modal.Description>
 		        <Form onSubmit={this.handleSubmit}>
@@ -181,9 +182,6 @@ function mapStateToProps ({ posts, items, modal }) {
 function mapDispatchToProps (dispatch) {
   return {
     setCategory: (data) => dispatch(setFilter(data)),
-    openMod: (data) => dispatch(openModal({elemType:data.elemType,
-    																			 elemID:data.elemID,
-    																			 elemNew:data.elemNew})),
     closeMod: () => dispatch(closeModal()),
     editPost: (data) => {
     	console.log("In editPost")

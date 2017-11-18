@@ -67,7 +67,7 @@ class App extends Component {
         </nav>
         <EditPostModal options={options}/>
         <div className='sub-body'>
-          <div className='edit-post-modal'>
+          <div className='new-post-modal'>
             <Button content='Add New Post' labelPosition='left' icon='add' onClick={this.handleOpen}/>
           </div>
           <SortPosts />

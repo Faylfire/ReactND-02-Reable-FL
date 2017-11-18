@@ -24,6 +24,10 @@ class ListComments extends Component {
     }
   }
 
+  handleOpen = () => {
+    let { postID } = this.props
+    this.props.openMod({elemType:'comments', elemID:'', elemNew:true, paremtId:postID})
+  }
 
 	render() {
     let { items, isLoading, hasErrored, deleteComment, openMod } = this.props
@@ -44,48 +48,53 @@ class ListComments extends Component {
     console.log(`items: ${items}`)
     return (
       <div>
-  		<ol className='contact-list'>
-        {Object.keys(items).length === 0 ?
-          <div className='nothing-here'>
-            <em>Add a comment!</em>
-          </div> :
-          [...Object.values(items)].map((comment, index) =>
-          <li key={comment.id} >
-            <div className='post-item'>
-              <div className='post-heading'>
-                <VoteScore
-                  elemID={comment.id}
-                  elemType='comments'
-                />
-                <Label>
-                  <Icon name='comment outline' /><strong>{comment.author}</strong>
-                </Label>
-                <p>{`Submitted on ${getDate(comment.timestamp)}`}</p>
-                <div className='edit-delete'>
-                  <Button icon
-                    onClick={() => this.props.openMod({elemType:'comments', elemID:comment.id, elemNew:false})}
-                    circular='true'
-                    positive
-                    >
-                    <Icon name='edit' />
-                  </Button>
-                  <Button icon
-                    onClick={()=> deleteComment({commentID:comment.id})}
-                    circular='true'
-                    negative
-                    >
-                    <Icon name='remove' />
-                  </Button>
-                </div>
-              </div>
-              <div className='post-body'>
-                <p>{comment.body}</p>
-              </div>
+        <div className='new-post-modal'>
+          <Button content='Write a Comment' labelPosition='left' icon='commenting' onClick={this.handleOpen}/>
+        </div>
+        <div className='comment-list'>
+      		<ol className='contact-list'>
+            {Object.keys(items).length === 0 ?
+              <div className='nothing-here'>
+                <em>Add a comment!</em>
+              </div> :
+              [...Object.values(items)].map((comment, index) =>
+              <li key={comment.id} >
+                <div className='post-item'>
+                  <div className='post-heading'>
+                    <VoteScore
+                      elemID={comment.id}
+                      elemType='comments'
+                    />
+                    <Label>
+                      <Icon name='comment outline' /><strong>{comment.author}</strong>
+                    </Label>
+                    <p>{`Submitted on ${getDate(comment.timestamp)}`}</p>
+                    <div className='edit-delete'>
+                      <Button icon
+                        onClick={() => this.props.openMod({elemType:'comments', elemID:comment.id, elemNew:false, parentId:this.props.postID})}
+                        circular='true'
+                        positive
+                        >
+                        <Icon name='edit' />
+                      </Button>
+                      <Button icon
+                        onClick={()=> deleteComment({commentID:comment.id})}
+                        circular='true'
+                        negative
+                        >
+                        <Icon name='remove' />
+                      </Button>
+                    </div>
+                  </div>
+                  <div className='post-body'>
+                    <p>{comment.body}</p>
+                  </div>
 
-            </div>
-          </li>
-        )}
-      </ol>
+                </div>
+              </li>
+            )}
+          </ol>
+        </div>
       </div>
     )
 	}
@@ -122,7 +131,8 @@ function mapDispatchToProps (dispatch) {
     fetchComments: (postID) => dispatch(commentsFetchData(postID)),
     openMod: (data) => dispatch(openModal({elemType:data.elemType,
                                            elemID:data.elemID,
-                                           elemNew:data.elemNew})),
+                                           elemNew:data.elemNew,
+                                           parentId:data.parentId})),
   }
 }
 
