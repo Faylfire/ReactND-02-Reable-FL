@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
 import logo from '../icons/logo.svg';
 import './App.css';
-import { genID, getImg, getDate, testCata, capitalize} from '../utils/helper.js'
+import { capitalize} from '../utils/helper.js'
 import * as dataAccessAPI from '../utils/dataAccessAPI.js'
-import sortBy from 'sort-by'
 import { connect } from 'react-redux'
 import { updatePost, removePost, updateComment, removeComment, setFilter, openModal } from '../actions'
-import { Link, NavLink, Route, Switch} from 'react-router-dom'
+import { Link, Route, Switch} from 'react-router-dom'
 import TestParams from './TestParams.js'
 import PostDetails from './PostDetails.js'
-import ConnectedSwitch from './ConnectedSwitch.js'
 import EditPostModal from './EditPostModal.js'
 import SortPosts from './SortPosts.js'
 import { Button} from 'semantic-ui-react'
@@ -31,8 +29,8 @@ class App extends Component {
 
   render() {
     //const { backend } = this.state
-    const { sortType, posts, categories, viewFilter, addPost, addComment, deleteComment, deletePost, setCategory, openMod} = this.props
-    let catas = testCata.categories
+    const { categories, setCategory} = this.props
+    //let catas = testCata.categories
     /*let postsList = [...Object.values(posts)].filter((c) => {
         return (c.deleted !== true && (c.category == viewFilter.category || viewFilter.category == 'all'))
       })
@@ -86,10 +84,8 @@ class App extends Component {
 function mapStateToProps ({ sortType, posts, categories, viewFilter }) {
 
   return {
-    posts: posts,
     categories: categories,
     viewFilter: viewFilter,
-    sortType: sortType,
   }
 }
 

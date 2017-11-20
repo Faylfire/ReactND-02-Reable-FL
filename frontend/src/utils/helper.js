@@ -143,7 +143,7 @@ function genID() {
   // after the decimal. With the addition of the Date this should mean that unless
   // more than 10 thousand ids are generated every milisecond, there should be no collisions
 
-  return '_' + Date.now().toString(36) + Math.random().toString(36).substr(2, 9);
+  return Date.now().toString(36) + Math.random().toString(36).substr(2, 9);
 };
 
 

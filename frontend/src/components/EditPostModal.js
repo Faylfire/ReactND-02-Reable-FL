@@ -4,7 +4,8 @@ import {
 	closeModal,
 	openModal,
 	updatePost,
-	updateComment } from '../actions'
+	updateComment,
+	incCommCount } from '../actions'
 import { connect } from 'react-redux'
 import * as dataAccessAPI from '../utils/dataAccessAPI.js'
 import { Button, Header, Icon, Modal, Form } from 'semantic-ui-react'
@@ -35,21 +36,27 @@ class EditPostModal extends Component {
 	    console.log('AFTER')
 	    if (elemNew === true) {
 	    	if (elemType === 'posts'){
-	    		editElement={
+	    		editElement = {
 				    id: genID(),
 				    timestamp: Date.now(),
 				    title: '',
 				    body: '',
 				    author: '',
 				    category: '',
+				    voteScore: 1,
+				    commentCount:0,
+				    deleted:false
 			  	}
 	    	} else{
-	    		editElement={
+	    		editElement = {
 				    id: genID(),
 				    parentId:modal.parentId,
 				    timestamp: Date.now(),
 				    body: '',
 				    author: '',
+				    voteScore: 1,
+				    deleted:false,
+				    parentDeleted:false
 				  }
 	    	}
 	    } else {
@@ -150,8 +157,8 @@ class EditPostModal extends Component {
 		      <Modal.Description>
 		        <Form onSubmit={this.handleSubmit}>
 		        <Form.Group widths='equal'>
-		          <Form.Input label='Author' name='author' value={author} placeholder='User Name' onChange={this.handleChange}/>
-		          <Form.Select disabled={elemType === 'comments' ? true : false} label='Category' name='category' value={category} options={options} placeholder='Category' onChange={this.handleChange} />
+		          <Form.Input disabled={!elemNew} label='Author' name='author' value={author} placeholder='User Name' onChange={this.handleChange}/>
+		          <Form.Select disabled={(elemType === 'comments' || !elemNew) ? true : false} label='Category' name='category' value={category} options={options} placeholder='Category' onChange={this.handleChange} />
 		        </Form.Group>
 		        <Form.Group widths='equal'>
 		          <Form.Input disabled={elemType === 'comments' ? true : false} label='Title' name='title' value={title} placeholder='Title' onChange={this.handleChange}/>
@@ -197,6 +204,7 @@ function mapDispatchToProps (dispatch) {
     },
     editComment: (data) => {
     	if (data.elemNew === true){
+    		dispatch(incCommCount(data.comment.parentId))
     		dataAccessAPI.addComment(data.comment, 'comments')
     	} else {
     		dataAccessAPI.editComment(data.comment.id, 'comments', data.comment.body, data.comment.timestamp)

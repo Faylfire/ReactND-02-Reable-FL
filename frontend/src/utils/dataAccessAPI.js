@@ -6,7 +6,7 @@ if (!token)
   token = localStorage.token = Math.random().toString(36).substr(-8)
 
 const headers = {
-  'Accept': 'application/json',
+  "Content-Type": "application/json",
   'Authorization': token
 }
 
@@ -40,7 +40,8 @@ export const getComments = (postID) =>
 
 
 export const voteUp = (elemID, elemType) =>
-  fetch(`${api}/${elemType}/${elemID}`, { headers: headers, method:'POST'} )
+  fetch(`${api}/${elemType}/${elemID}`,
+      { headers: headers, method:'POST', body: JSON.stringify({ option:'upVote' })} )
     .then(res => res.text())
     .then((text) => {
       console.log('request succeeded with JSON response', text)
@@ -49,7 +50,7 @@ export const voteUp = (elemID, elemType) =>
     })
 
 export const voteDown = (elemID, elemType) =>
-  fetch(`${api}/${elemType}/${elemID}?option="downVote"`, { headers: headers, method:'POST'} )
+  fetch(`${api}/${elemType}/${elemID}`, { headers: headers, method:'POST', body: JSON.stringify({ option:'downVote' })} )
     .then(res => res.text())
     .then((text) => {
       console.log('request succeeded with JSON response', text)
@@ -64,7 +65,7 @@ export const voteDown = (elemID, elemType) =>
 
 
 export const editPost = (id, elemType, body, title) =>
-  fetch(`${api}/posts/${id}`, { method: "PUT", headers, body: JSON.stringify({ title, body })})
+  fetch(`${api}/posts/${id}`, { headers:headers, method:'PUT', body: JSON.stringify({ title, body })})
     .then(res => res.json())
     .then(data => {
       console.log('id', id);
@@ -92,35 +93,51 @@ export const editComment = (id, elemType, body, timestamp) =>
 
 export const addPost = (post, elemType ) => {
 
-    let query = Object.keys(post).reduce((q, curr) => {
-      q = q.concat(`${curr}=${post[curr]}&`)
+    let { id, timestamp, title, body, author, category, voteScore, commmentCount, deleted} = post
 
-      return q
-    }, '')
-
-    console.log(query.slice(0,-1))
-    fetch(`${api}/${elemType}?${query.slice(0,-1)}`, { headers: headers, method:'POST'} )
-      .then( (res) => { return(res) })
-      .then((data) => {
-      return data
+    fetch(`${api}/posts`,
+      { method: "POST", headers, body: JSON.stringify({
+        id:id,
+        timestamp: timestamp,
+        title:title,
+        body: body,
+        author: author,
+        category: category,
+        voteScore: voteScore,
+        commentCount: commmentCount,
+        deleted: deleted})}
+    )
+      .then(res => res.json())
+      .then(data => {
+        console.log('id', id);
+        console.log('timestamp', timestamp);
+        console.log('body', body);
+        console.log('result', data);
     })
 
   }
 
 export const addComment = (comment, elemType ) => {
 
-    let query = Object.keys(comment).reduce((q, curr) => {
-      q = q.concat(`${curr}=${comment[curr]}&`)
+    let { id, parentId, timestamp, body, author, voteScore, deleted, parentDeleted } = comment
 
-      return q
-    }, '')
-
-
-    fetch(`${api}/${elemType}?${query.slice(0,-1)}`, { headers: headers, method:'POST'} )
-      .then( (res) => { return(res) })
-      .then((data) => {
-      return data
+    fetch(`${api}/comments`,
+      { method: "POST", headers, body: JSON.stringify({
+        id: id,
+        parentId: parentId,
+        timestamp: timestamp,
+        body: body,
+        author: author,
+        voteScore: voteScore,
+        deleted: deleted,
+        parentDeleted: parentDeleted})}
+    )
+      .then(res => res.json())
+      .then(data => {
+        console.log('id', id);
+        console.log('timestamp', timestamp);
+        console.log('body', body);
+        console.log('result', data);
     })
 
   }
-

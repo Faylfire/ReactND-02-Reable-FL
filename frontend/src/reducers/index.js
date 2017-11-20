@@ -13,7 +13,9 @@ import {
     VOTE_COMMENT_DOWN,
     OPEN_MODAL,
     CLOSE_MODAL,
-    SORT_BY
+    SORT_BY,
+    INC_COMMENTCOUNT,
+    DEC_COMMENTCOUNT,
 } from '../actions'
 import { combineReducers } from 'redux'
 
@@ -136,6 +138,22 @@ function posts (state = {}, action) {
                 [postID]:{
                     ...state[postID],
                     voteScore: state[postID].voteScore - 1
+                }
+            }
+        case INC_COMMENTCOUNT:
+            return {
+                ...state,
+                [postID]:{
+                    ...state[postID],
+                    commentCount: state[postID].commentCount + 1
+                }
+            }
+        case DEC_COMMENTCOUNT:
+            return {
+                ...state,
+                [postID]:{
+                    ...state[postID],
+                    commentCount: state[postID].commentCount - 1
                 }
             }
 		case REMOVE_POST:

@@ -5,7 +5,7 @@ import sortBy from 'sort-by'
 import { connect } from 'react-redux'
 import { updatePost, removePost, } from '../actions'
 import { Link } from 'react-router-dom'
-import { updateComment, removeComment, setFilter, commentsFetchData, openModal } from '../actions'
+import { decCommCount, updateComment, removeComment, setFilter, commentsFetchData, openModal } from '../actions'
 import VoteScore from './VoteScore.js'
 import { Button, Icon, Label } from 'semantic-ui-react'
 
@@ -26,7 +26,7 @@ class ListComments extends Component {
 
   handleOpen = () => {
     let { postID } = this.props
-    this.props.openMod({elemType:'comments', elemID:'', elemNew:true, paremtId:postID})
+    this.props.openMod({elemType:'comments', elemID:'', elemNew:true, parentId:postID})
   }
 
 	render() {
@@ -45,7 +45,11 @@ class ListComments extends Component {
           <em>Loading...</em>
         </div>)
     }
-    console.log(`items: ${items}`)
+
+    let commentList = [...Object.values(items)].filter((c) => {
+        return (c.deleted !== true)
+      })
+
     return (
       <div>
         <div className='new-post-modal'>
@@ -53,11 +57,11 @@ class ListComments extends Component {
         </div>
         <div className='comment-list'>
       		<ol className='contact-list'>
-            {Object.keys(items).length === 0 ?
+            {commentList.length === 0 ?
               <div className='nothing-here'>
                 <em>Add a comment!</em>
               </div> :
-              [...Object.values(items)].map((comment, index) =>
+              commentList.map((comment, index) =>
               <li key={comment.id} >
                 <div className='post-item'>
                   <div className='post-heading'>
@@ -78,7 +82,7 @@ class ListComments extends Component {
                         <Icon name='edit' />
                       </Button>
                       <Button icon
-                        onClick={()=> deleteComment({commentID:comment.id})}
+                        onClick={()=> deleteComment({commentID:comment.id, parentId:this.props.postID})}
                         circular='true'
                         negative
                         >
@@ -125,7 +129,8 @@ function mapDispatchToProps (dispatch) {
     addComment: (data) => dispatch(updateComment(data)),
     deleteComment: (data) => {
       dataAccessAPI.delComment(data.commentID)
-      dispatch(removeComment(data))
+      dispatch(decCommCount(data.parentId))
+      dispatch(removeComment(data.commentID))
     },
     setCategory: (data) => dispatch(setFilter(data)),
     fetchComments: (postID) => dispatch(commentsFetchData(postID)),

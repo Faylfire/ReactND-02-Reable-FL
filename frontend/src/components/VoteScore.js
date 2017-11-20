@@ -67,7 +67,7 @@ function mapDispatchToProps (dispatch) {
     setCategory: (data) => dispatch(setFilter(data)),
     voteUp: (data) => {
 
-			dataAccessAPI.voteDown(data.elemID, data.elemType)
+			dataAccessAPI.voteUp(data.elemID, data.elemType)
     	data.elemType==='posts' ?
     		dispatch(votePostUp({postID:data.elemID})) :
     		dispatch(voteCommentUp({commentID:data.elemID}))

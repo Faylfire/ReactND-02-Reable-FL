@@ -25,6 +25,9 @@ export const EDIT_POST = 'EDIT_POST'
 
 export const SORT_BY = 'SORT_BY'
 
+export const INC_COMMENTCOUNT = 'INC_COMMENTCOUNT'
+export const DEC_COMMENTCOUNT = 'DEC_COMMENTCOUNT'
+
 //Post Actions
 export function updatePost({postID, post}) {
 	return {
@@ -64,10 +67,10 @@ export function updateComment({commentID, comment}) {
 	}
 }
 
-export function removeComment({commentID}) {
+export function removeComment(commentID) {
 	return {
 		type: REMOVE_COMMENT,
-		commentID,
+		commentID: commentID,
 	}
 }
 
@@ -182,5 +185,19 @@ export function changeSort(sortBy) {
 	return {
 		type: SORT_BY,
 		sortBy: sortBy
+	}
+}
+
+export function incCommCount(postID) {
+	return {
+		type: INC_COMMENTCOUNT,
+		postID: postID
+	}
+}
+
+export function decCommCount(postID) {
+	return {
+		type: DEC_COMMENTCOUNT,
+		postID: postID
 	}
 }
