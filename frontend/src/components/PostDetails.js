@@ -2,8 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom'
 import { openModal, updatePost, removePost, updateComment, removeComment, setFilter, commentsFetchData } from '../actions'
 import * as dataAccessAPI from '../utils/dataAccessAPI.js'
-import { getImg, getDate, timeSince} from '../utils/helper.js'
-import sortBy from 'sort-by'
+import { getImg, timeSince} from '../utils/helper.js'
+//import sortBy from 'sort-by'
 import { connect } from 'react-redux'
 import ListComments from './ListComments.js'
 import VoteScore from './VoteScore.js'
@@ -19,17 +19,13 @@ const PostDetails = (props) => {
     setCategory(path)
   }
   let id = path.slice(path.indexOf('/')+1)
-  /*
-	if (Object.keys(props.match.params).length === 0){
-		category = ''
-	}*/
 
 
 	let postsList = [...Object.values(posts)].filter((c) => {
         return (c.deleted !== true && c.id === id )
       })
 
-	console.log("I'm in POST DETAILS")
+
 	return (
 		<div className='post-details'>
       {postsList.length === 0 ?
@@ -60,14 +56,14 @@ const PostDetails = (props) => {
                 <div className='edit-delete'>
                   <Button icon
                     onClick={() => openMod({elemType:'posts', elemID:post.id, elemNew:false})}
-                    circular='true'
+                    circular
                     positive
                     >
                     <Icon name='edit' />
                   </Button>
                   <Button icon
                     onClick={()=> deletePost({postID:post.id})}
-                    circular='true'
+                    circular
                     negative
                     >
                     <Icon name='remove' />

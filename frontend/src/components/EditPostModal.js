@@ -31,8 +31,7 @@ class EditPostModal extends Component {
 	    //let {modalOpen} = this.state
 	    let {elemType, elemID, elemNew} = modal
 	    let editElement = {}
-	    console.log(editElement)
-	    console.log('AFTER')
+
 	    if (elemNew === true) {
 	    	if (elemType === 'posts'){
 	    		editElement = {
@@ -41,7 +40,7 @@ class EditPostModal extends Component {
 				    title: '',
 				    body: '',
 				    author: '',
-				    category: '',
+				    category: 'general',
 				    voteScore: 1,
 				    commentCount:0,
 				    deleted:false
@@ -59,14 +58,12 @@ class EditPostModal extends Component {
 				  }
 	    	}
 	    } else {
-	    	console.log("IN ELSE")
 				if (elemType === 'posts'){
 					editElement = posts[elemID]
 				} else if(elemType === 'comments') {
 					editElement = items[elemID]
 				}
 			}
-			console.log(editElement)
 			this.setState({
 						 title:editElement.title,
 						 body: editElement.body,
@@ -129,22 +126,14 @@ class EditPostModal extends Component {
   }
 
 	render() {
-		let { items, posts, modal, options, closeMod} = this.props
-    //let {modalOpen} = this.state
-    let modalOpen = modal.modalOpen
-    let {elemType, elemID, elemNew} = modal
-    /*let editElement = {}
+		let { modal, options} = this.props
 
-		if (elemType === 'posts'){
-			editElement = posts[elemID]
-		} else if (elemType === 'comments') {
-			editElement = items[elemID]
-		}*/
+    let modalOpen = modal.modalOpen
+    let {elemType, elemNew} = modal
+
 
 		let {title, body, author, category} = this.state
 
-		console.log("In Modal")
-		console.log("elemType: ", elemType)
 		return (
 			<div>
       <Modal
@@ -157,13 +146,13 @@ class EditPostModal extends Component {
 		      <Modal.Description>
 		        <Form onSubmit={this.handleSubmit}>
 		        <Form.Group widths='equal'>
-		          <Form.Input disabled={!elemNew} label='Author' name='author' value={author} placeholder='User Name' onChange={this.handleChange}/>
-		          <Form.Select disabled={(elemType === 'comments' || !elemNew) ? true : false} label='Category' name='category' value={category} options={options} placeholder='Category' onChange={this.handleChange} />
+		          <Form.Input required disabled={!elemNew} label='Author' name='author' value={author} placeholder='User Name' onChange={this.handleChange}/>
+		          <Form.Select required disabled={(elemType === 'comments' || !elemNew) ? true : false} label='Category' name='category' value={category} options={options} placeholder='Category' onChange={this.handleChange} />
 		        </Form.Group>
 		        <Form.Group widths='equal'>
-		          <Form.Input disabled={elemType === 'comments' ? true : false} label='Title' name='title' value={title} placeholder='Title' onChange={this.handleChange}/>
+		          <Form.Input required disabled={elemType === 'comments' ? true : false} label='Title' name='title' value={title} placeholder='Title' onChange={this.handleChange}/>
 		        </Form.Group>
-		        <Form.TextArea label='Content' name='body' value={body} rows='15' placeholder='Write your thoughts here...' onChange={this.handleChange}/>
+		        <Form.TextArea required label='Content' name='body' value={body} rows='15' placeholder='Write your thoughts here...' onChange={this.handleChange}/>
 		        <Form.Button>Submit</Form.Button>
 		      </Form>
 		      </Modal.Description>
@@ -200,7 +189,6 @@ function mapDispatchToProps (dispatch) {
     		dataAccessAPI.editPost(data.post.id, 'posts', data.post.body, data.post.title)
     	}
     	dispatch(updatePost({postID:data.postID, post:data.post}))
-    	//dispatch(updatePost({postID:data.postID, post:data.post}))
     },
     editComment: (data) => {
     	if (data.elemNew === true){

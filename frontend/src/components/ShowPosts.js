@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom'
 import { updatePost, removePost, updateComment, removeComment, setFilter, openModal } from '../actions'
 import * as dataAccessAPI from '../utils/dataAccessAPI.js'
-import { getImg, getDate, timeSince} from '../utils/helper.js'
+import { getImg, timeSince} from '../utils/helper.js'
 import sortBy from 'sort-by'
 import { connect } from 'react-redux'
 import VoteScore from './VoteScore.js'
@@ -10,24 +10,21 @@ import { Button, Icon  } from 'semantic-ui-react'
 
 
 const ShowPosts = (props) => {
-	//let {category, number} = props.match.params
-	//const {posts, comments, categories, router, addPost, addComment, deleteComment, deletePost, setCategory} = props
-	//let category = router.location.pathname.slice(1)
-  /*
-	if (Object.keys(props.match.params).length === 0){
-		category = ''
-	}*/
+
   const {sortType, posts, router, deletePost, setCategory, openMod} = props
+  //Parse out the category
   let category = router.location.pathname.slice(1)
+  //Filter for category in the case of category view, and non-deleted posts, or the catchall
   let postsList = [...Object.values(posts)].filter((c) => {
         return (c.deleted !== true && (c.category === category || category === ''))
       })
-  console.log("In SHOW POSTS")
+
+  //Sort Posts by sortType selected
   postsList.sort(sortBy(sortType))
 	return (
-		<div>
+		<div className='show-posts'>
 			  <ol className='contact-list'>
-          {postsList.length == 0 ?
+          {postsList.length === 0 ?
             <div className='nothing-here'>
               <em>There doesn't seem to be anything here...</em>
             </div> :
@@ -53,14 +50,14 @@ const ShowPosts = (props) => {
               <div className='edit-delete'>
                 <Button icon
                   onClick={() => openMod({elemType:'posts', elemID:post.id, elemNew:false})}
-                  circular='true'
+                  circular
                   positive
                   >
                   <Icon name='edit' />
                 </Button>
                 <Button icon
                   onClick={()=> deletePost({postID:post.id})}
-                  circular='true'
+                  circular
                   negative
                   >
                   <Icon name='remove' />

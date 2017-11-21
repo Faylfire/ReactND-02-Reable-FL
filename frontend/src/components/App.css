@@ -48,7 +48,7 @@
 }
 
 
-/* ListContacts */
+/* List Posts and List Comments taken from Contact App in Udacity */
 
 .list-contacts {
   padding-top: 60px;
@@ -59,34 +59,6 @@
   top: 0;
   /*border-bottom: 1px solid #d5d8df;*/
   display:flex;
-}
-
-.search-contacts {
-  width: 100%;
-  padding: 20px 20px 20px 60px;
-  background-image: url('../icons/search.svg');
-  background-repeat: no-repeat;
-  background-position: 20px center;
-  background-size: 1.2em;
-  font-size: 1.2em;
-  border: 0;
-  outline: none;
-}
-
-.add-contact {
-  display: block;
-  width: 73px;
-  background: white;
-  background-image: url('../icons/person-add.svg');
-  /*background-image:url('./icons/Freesample.svg');*/
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 28px;
-  font-size: 0;
-}
-
-.add-contact:hover {
-  background-image: url('../icons/person-add-hover.png');
 }
 
 .showing-contacts {
@@ -148,6 +120,7 @@
   flex-direction: column;
   justify-content: center;
 }
+
 .contact-details p {
   margin: 0;
   min-width: 0;
@@ -253,6 +226,7 @@
 
 }
 
+/* Clearfixes */
 .comment-list{
   clear:right;
 }
@@ -265,15 +239,18 @@
   clear:left;
 }
 
+/*Edit Delete Controls*/
 .edit-delete {
   margin:auto;
 }
 
+/* New Post Button*/
 .new-post-modal{
   float:right;
   margin:20px;
 }
 
+/* New Comment Button*/
 .new-comment-modal{
   float:right;
   margin:0px 20px 0px 20px;
@@ -284,6 +261,7 @@
   float:left;
 }
 
+/* Formatting for the main body after Navbar*/
 .sub-body {
   max-width: 1600px;
   margin: auto;

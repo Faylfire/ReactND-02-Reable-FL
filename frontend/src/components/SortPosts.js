@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import {
-	setFilter,
-  changeSort } from '../actions'
+import { changeSort } from '../actions'
 import { connect } from 'react-redux'
-import { Dropdown, Icon} from 'semantic-ui-react'
+import { Dropdown } from 'semantic-ui-react'
 
 
 const options = [
@@ -18,23 +16,20 @@ class SortPosts extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-          };
+    this.state = {};
   }
 
 
   handleChange = (e, { value }) => {
-
   	this.setState({ value })
-    console.log(value)
+    //Updates Redux store's sortType to be used in sorting scenarios
     this.props.setSortBy(value)
   }
 
 
 	render() {
+    //Controlled element through reading of Redux store for sortType
     let { sortType } = this.props
-    //let {modalOpen} = this.state
-
 
 		return (
 			<div className="sort-dropdown">
@@ -52,11 +47,10 @@ class SortPosts extends Component {
 
 }
 
-function mapStateToProps ({ sortType, posts, viewFilter, router }) {
+function mapStateToProps ({ sortType, posts }) {
 
   return {
     posts: posts,
-    router: router,
     sortType: sortType,
   }
 }

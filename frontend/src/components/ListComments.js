@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import { timeSince, getDate, getImg } from '../utils/helper.js'
+import { timeSince, getImg } from '../utils/helper.js'
 import * as dataAccessAPI from '../utils/dataAccessAPI.js'
-import sortBy from 'sort-by'
+//import sortBy from 'sort-by'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
 import { decCommCount, updateComment, removeComment, setFilter, commentsFetchData, openModal } from '../actions'
 import VoteScore from './VoteScore.js'
-import { Button, Icon, Label } from 'semantic-ui-react'
+import { Button, Icon } from 'semantic-ui-react'
 
 
 
@@ -29,7 +28,7 @@ class ListComments extends Component {
   }
 
 	render() {
-    let { items, isLoading, hasErrored, deleteComment, openMod } = this.props
+    let { items, isLoading, hasErrored, deleteComment } = this.props
 
     if (hasErrored) {
       return (
@@ -78,14 +77,14 @@ class ListComments extends Component {
                   <div className='edit-delete'>
                     <Button icon
                       onClick={() => this.props.openMod({elemType:'comments', elemID:comment.id, elemNew:false, parentId:this.props.postID})}
-                      circular='true'
+                      circular
                       positive
                       >
                       <Icon name='edit' />
                     </Button>
                     <Button icon
                       onClick={()=> deleteComment({commentID:comment.id, parentId:this.props.postID})}
-                      circular='true'
+                      circular
                       negative
                       >
                       <Icon name='remove' />

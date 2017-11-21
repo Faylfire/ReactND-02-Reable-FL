@@ -68,10 +68,10 @@ export const editPost = (id, elemType, body, title) =>
   fetch(`${api}/posts/${id}`, { headers:headers, method:'PUT', body: JSON.stringify({ title, body })})
     .then(res => res.json())
     .then(data => {
-      console.log('id', id);
-      console.log('body', body);
-      console.log('title', title);
-      console.log('result', data);
+      //console.log('id', id);
+      //console.log('body', body);
+      //console.log('title', title);
+      //console.log('result', data);
     })
 
 /*export const editComment = (elemID, elemType, body, timestamp) =>
@@ -83,10 +83,10 @@ export const editComment = (id, elemType, body, timestamp) =>
   fetch(`${api}/comments/${id}`, { method: "PUT", headers, body: JSON.stringify({ timestamp, body })})
     .then(res => res.json())
     .then(data => {
-      console.log('id', id);
-      console.log('timestamp', timestamp);
-      console.log('body', body);
-      console.log('result', data);
+      //console.log('id', id);
+      //console.log('timestamp', timestamp);
+      //console.log('body', body);
+      //console.log('result', data);
     })
 
 
@@ -109,10 +109,10 @@ export const addPost = (post, elemType ) => {
     )
       .then(res => res.json())
       .then(data => {
-        console.log('id', id);
-        console.log('timestamp', timestamp);
-        console.log('body', body);
-        console.log('result', data);
+        //console.log('id', id);
+        //console.log('timestamp', timestamp);
+        //console.log('body', body);
+        //console.log('result', data);
     })
 
   }
@@ -134,10 +134,10 @@ export const addComment = (comment, elemType ) => {
     )
       .then(res => res.json())
       .then(data => {
-        console.log('id', id);
-        console.log('timestamp', timestamp);
-        console.log('body', body);
-        console.log('result', data);
+        //console.log('id', id);
+        //console.log('timestamp', timestamp);
+        //console.log('body', body);
+        //console.log('result', data);
     })
 
   }

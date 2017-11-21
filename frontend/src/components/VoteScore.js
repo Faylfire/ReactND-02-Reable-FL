@@ -5,7 +5,7 @@ import {
 	voteCommentDown,
 	votePostUp,
 	votePostDown,
-	setFilter } from '../actions'
+	} from '../actions'
 import { connect } from 'react-redux'
 import * as dataAccessAPI from '../utils/dataAccessAPI.js'
 import { Button, Icon, Label } from 'semantic-ui-react'
@@ -18,27 +18,28 @@ class VoteScore extends Component {
 		let { items, posts, elemID, elemType, voteUp, voteDown} = this.props
 		let voteScore = 0
 
+		//Test for posts or comments to get the score appropriately
+		//from the Redux store
 		if (elemType === 'posts'){
 			voteScore = posts[elemID].voteScore
 		} else {
 			voteScore = items[elemID].voteScore
 		}
 
-		console.log("In VOTESCORE!!")
 		return (
 			<div className='vote-score'>
 				<Button icon
-					fluid='true'
+					fluid
 					size='tiny'
 					onClick={()=> voteUp({elemType:elemType, elemID:elemID})}
 				>
 			  	<Icon name='chevron up' />
 				</Button>
-				<Label circular='true' size='large'>
+				<Label circular size='large'>
 			  	<Icon name='hand peace' /> {voteScore}
 				</Label>
 				<Button icon
-					fluid='true'
+					fluid
 					size='tiny'
 					onClick={()=> voteDown({elemType:elemType, elemID:elemID})}
 				>
@@ -48,23 +49,19 @@ class VoteScore extends Component {
   	)
 	}
 
-
 }
 
 
-function mapStateToProps ({ posts,
-  comments, items }) {
+function mapStateToProps ({ posts, items }) {
 
   return {
     posts: posts,
-    comments: comments,
     items: items,
   }
 }
 
 function mapDispatchToProps (dispatch) {
   return {
-    setCategory: (data) => dispatch(setFilter(data)),
     voteUp: (data) => {
 
 			dataAccessAPI.voteUp(data.elemID, data.elemType)
