@@ -1,8 +1,8 @@
 # Readable
 
-This is the final assessment project for Udacity's Redux course (part of the React Nanodegree) where you will build a content and comment web app. Users will be able to post content to predefined categories, comment on their posts and other users' posts, and vote on posts and comments. Users will also be able to edit and delete posts and comments.
+This is the final assessment project for Udacity's Redux course (part of the React Nanodegree) where you build a content and comment web app. Users will be able to post content to predefined categories, comment on their posts and other users' posts, and vote on posts and comments. Users will also be able to edit and delete posts and comments.
 
-This repository includes the code for the backend API Server that you'll use to develop and interact with the front-end portion of the project.
+This repository includes the code for the backend API Server that you'll use to interact with the front-end portion of the project and includes the icons for the categories.
 
 React is used in conjuction with SemanticUI to create the views.
 
@@ -51,7 +51,7 @@ Unless modified in `api-server/config.js` server will use port 3001
 
 [openclipart.org](https://openclipart.org/detail/247319/abstract-user-icon-3)
 
-* StackOverflow, Google, Medium, Youtube mention *
+	* StackOverflow, Google, Medium, Youtube mention *
 
 
 
