@@ -96,7 +96,7 @@ class ListComments extends Component {
                   </div>
                   </div>
                   <div className="post-body">
-                    {nl2br(comment.body).split('<br />').map((paragraph) => <p>{paragraph}</p> )}
+                    {nl2br(comment.body).split('<br />').map((paragraph, index) => <p key={index}>{paragraph}</p> )}
                   </div>
                 </div>
               </li>

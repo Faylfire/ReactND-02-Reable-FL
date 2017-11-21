@@ -14,6 +14,15 @@ const ShowPosts = (props) => {
   const {sortType, posts, router, deletePost, setCategory, openMod} = props
   //Parse out the category
   let category = router.location.pathname.slice(1)
+  let path = router.location.pathname.slice(1)
+  let havePostID = path.indexOf('/')
+  if ( havePostID > 0){
+    category = category.slice(0, havePostID)
+    setCategory(category)
+  }
+
+
+
   //Filter for category in the case of category view, and non-deleted posts, or the catchall
   let postsList = [...Object.values(posts)].filter((c) => {
         return (c.deleted !== true && (c.category === category || category === ''))

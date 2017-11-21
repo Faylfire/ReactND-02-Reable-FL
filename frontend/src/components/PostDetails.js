@@ -71,7 +71,7 @@ const PostDetails = (props) => {
                 </div>
               </div>
               <div className="post-body">
-                {nl2br(post.body).split('<br />').map((paragraph) => <p>{paragraph}</p> )}
+                {nl2br(post.body).split('<br />').map((paragraph, index) => <p key={index}>{paragraph}</p> )}
               </div>
 
             </div>
