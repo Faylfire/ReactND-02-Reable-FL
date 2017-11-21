@@ -22,7 +22,6 @@ const ShowPosts = (props) => {
   }
 
 
-
   //Filter for category in the case of category view, and non-deleted posts, or the catchall
   let postsList = [...Object.values(posts)].filter((c) => {
         return (c.deleted !== true && (c.category === category || category === ''))

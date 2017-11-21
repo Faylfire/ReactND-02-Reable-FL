@@ -65,67 +65,7 @@ const testCata = {
       {
         name: 'life',
         path: 'life'
-      },
-      {
-        name: 'react',
-        path: 'react'
-      },
-      {
-        name: 'redux',
-        path: 'redux'
-      },
-      {
-        name: 'udacity',
-        path: 'udacity'
-      },
-      {
-        name: 'general',
-        path: 'general'
-      },
-      {
-        name: 'life',
-        path: 'life'
-      },
-      {
-        name: 'react',
-        path: 'react'
-      },
-      {
-        name: 'redux',
-        path: 'redux'
-      },
-      {
-        name: 'udacity',
-        path: 'udacity'
-      },
-      {
-        name: 'general',
-        path: 'general'
-      },
-      {
-        name: 'life',
-        path: 'life'
-      },
-      {
-        name: 'react',
-        path: 'react'
-      },
-      {
-        name: 'redux',
-        path: 'redux'
-      },
-      {
-        name: 'udacity',
-        path: 'udacity'
-      },
-      {
-        name: 'general',
-        path: 'general'
-      },
-      {
-        name: 'life',
-        path: 'life'
-      },
+      }
   ]
 }
 
@@ -165,7 +105,7 @@ function getDate (timestamp) {
   return date.toLocaleString()
 }
 
-
+//https://stackoverflow.com/questions/7467840/nl2br-equivalent-in-javascript
 function nl2br (str, is_xhtml) {
     var breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '<br />' : '<br>';
     return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + breakTag + '$2');
