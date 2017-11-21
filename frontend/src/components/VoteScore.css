@@ -1,5 +1,7 @@
 .vote-score {
 	margin:auto;
 	display: block;
-	background: #e0e1e2
+	background: #e0e1e2;
+	width:70px;
+	border-radius:20%;
 }

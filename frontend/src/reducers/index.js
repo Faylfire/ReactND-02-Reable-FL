@@ -19,7 +19,7 @@ import {
 } from '../actions'
 import { combineReducers } from 'redux'
 
-
+/*
 const defaultComments = {
   "894tuq4ut84ut8v4t8wun89g": {
     id: '894tuq4ut84ut8v4t8wun89g',
@@ -106,7 +106,7 @@ const defaultPosts= {
   },
 
 }
-
+*/
 const defaultModal = {
     modalOpen:false,
     elemType:'',

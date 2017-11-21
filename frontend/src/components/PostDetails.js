@@ -1,8 +1,8 @@
 import React from 'react';
-import { Link, NavLink, Route } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { openModal, updatePost, removePost, updateComment, removeComment, setFilter, commentsFetchData } from '../actions'
 import * as dataAccessAPI from '../utils/dataAccessAPI.js'
-import { getImg, getDate} from '../utils/helper.js'
+import { getImg, getDate, timeSince} from '../utils/helper.js'
 import sortBy from 'sort-by'
 import { connect } from 'react-redux'
 import ListComments from './ListComments.js'
@@ -12,7 +12,7 @@ import { Button, Icon } from 'semantic-ui-react'
 
 const PostDetails = (props) => {
 	//let {category, number} = props.match.params
-	const {posts, comments, categories, router, addPost, addComment, deleteComment, deletePost, setCategory, openMod} = props
+	const {posts, router, deletePost, setCategory, openMod} = props
 	let path = router.location.pathname.slice(1)
   let havePostID = path.indexOf('/')
   if ( havePostID < 0){
@@ -26,13 +26,13 @@ const PostDetails = (props) => {
 
 
 	let postsList = [...Object.values(posts)].filter((c) => {
-        return (c.deleted !== true && c.id == id )
+        return (c.deleted !== true && c.id === id )
       })
 
 	console.log("I'm in POST DETAILS")
 	return (
 		<div className='post-details'>
-      {postsList.length == 0 ?
+      {postsList.length === 0 ?
         <div className='nothing-here'>
           <em>There doesn't seem to be anything here...</em>
         </div> :
@@ -41,7 +41,7 @@ const PostDetails = (props) => {
             <div className='post-item'>
               <div className='post-heading'>
                 <div className='contact-avatar' style={{
-                  backgroundImage: `url(${getImg(post)})`
+                  backgroundImage: `url(${getImg(post.category)})`
                 }}/>
                 <VoteScore
                   className='post-detail-vote'
@@ -54,7 +54,7 @@ const PostDetails = (props) => {
                       to={`/${post.category}/${post.id}`}
                       onClick={()=> setCategory({category:post.category})}
                     >{post.title}</Link></h3>
-                  <p>{`Submitted on ${getDate(post.timestamp)}`}</p>
+                  <p>{`Submitted ${timeSince(post.timestamp)} ago`}</p>
                   <p className="post-author">{`by ${post.author}`}</p>
                 </div>
                 <div className='edit-delete'>
@@ -80,11 +80,12 @@ const PostDetails = (props) => {
 
             </div>
             <div className='post-comment-count'>
-              {post.commentCount == 1 ?
+              {post.commentCount === 1 ?
                 <h4>{`${post.commentCount} comment`}</h4> :
                 <h4>{`${post.commentCount} comments`}</h4>
               }
             </div>
+
             <ListComments postID={post.id} />
           </div>
 

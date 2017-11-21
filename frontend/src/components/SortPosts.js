@@ -3,15 +3,25 @@ import {
 	setFilter,
   changeSort } from '../actions'
 import { connect } from 'react-redux'
-import { Dropdown} from 'semantic-ui-react'
+import { Dropdown, Icon} from 'semantic-ui-react'
 
+
+const options = [
+  { key: 1, text: 'Votes', value: "-voteScore", icon: "sort numeric descending" },
+  { key: 2, text: 'Date Descending', value: "-timestamp", icon: "calendar outline" },
+  { key: 3, text: 'Date Ascending', value: "timestamp", icon: "calendar outline" },
+  { key: 4, text: 'Comment Count', value: "-commentCount", icon: 'comments' },
+]
 
 
 class SortPosts extends Component {
 
-  state = {selection: '-voteScore'}
+  constructor(props) {
+    super(props);
+    this.state = {
+          };
+  }
 
-   handleChange = (e, { value }) => this.setState({ value })
 
   handleChange = (e, { value }) => {
 
@@ -22,23 +32,18 @@ class SortPosts extends Component {
 
 
 	render() {
-		let { value } = this.state
+    let { sortType } = this.props
     //let {modalOpen} = this.state
-    const options = [
-      { key: 1, text: 'Votes', value: "-voteScore", icon: "sort numeric descending" },
-      { key: 2, text: 'Date Descending', value: "-timestamp", icon: "calendar outline" },
-      { key: 3, text: 'Date Ascending', value: "timestamp", icon: "calendar outline" },
-      { key: 4, text: 'Comment Count', value: "-commentCount", icon: 'comments' },
-    ]
+
 
 		return (
 			<div className="sort-dropdown">
         <Dropdown
           onChange={this.handleChange}
           options={options}
-          selection
           placeholder="Sort Posts By"
-          value={value}
+          selection
+          value={sortType}
         />
     	</div>
   	)

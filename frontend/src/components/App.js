@@ -6,7 +6,7 @@ import * as dataAccessAPI from '../utils/dataAccessAPI.js'
 import { connect } from 'react-redux'
 import { updatePost, removePost, updateComment, removeComment, setFilter, openModal } from '../actions'
 import { Link, Route, Switch} from 'react-router-dom'
-import TestParams from './TestParams.js'
+import PostListView from './PostListView.js'
 import PostDetails from './PostDetails.js'
 import EditPostModal from './EditPostModal.js'
 import SortPosts from './SortPosts.js'
@@ -70,9 +70,9 @@ class App extends Component {
           </div>
           <SortPosts />
           <Switch>
-            <Route exact path="/" component={TestParams}/>
+            <Route exact path="/" component={PostListView}/>
             <Route exact path='/:category/:number' component={PostDetails}/>
-            <Route path='/:category' component={TestParams}/>
+            <Route path='/:category' component={PostListView}/>
           </Switch>
         </div>
       </div>

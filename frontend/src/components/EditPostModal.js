@@ -2,14 +2,13 @@ import React, { Component } from 'react';
 import {
 	setFilter,
 	closeModal,
-	openModal,
 	updatePost,
 	updateComment,
 	incCommCount } from '../actions'
 import { connect } from 'react-redux'
 import * as dataAccessAPI from '../utils/dataAccessAPI.js'
-import { Button, Header, Icon, Modal, Form } from 'semantic-ui-react'
-import { genID, testCata, capitalize} from '../utils/helper.js'
+import { Modal, Form } from 'semantic-ui-react'
+import { genID } from '../utils/helper.js'
 
 
 
@@ -151,6 +150,7 @@ class EditPostModal extends Component {
       <Modal
         open={modalOpen}
         onClose={this.handleClose}
+        closeIcon
       >
       	<Modal.Header>Add/Edit {elemType==='posts'? 'Post' : 'Comment'}</Modal.Header>
 		    <Modal.Content>

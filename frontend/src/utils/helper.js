@@ -147,15 +147,18 @@ function genID() {
 };
 
 
-function getImg (contact, imgURL="http://localhost:3001/freesample.svg") {
+function getImg (category, imgURL="http://localhost:3001/freesample.svg") {
     const iconList = {
       react: 'reactlogo.png',
       redux: 'reduxlogo.svg',
       udacity: 'default.png',
       general: 'life.jpg',
-      life: 'freesample.svg'
+      life: 'freesample.svg',
+      userAvatar:'avatar.jpeg'
     }
-    return (`http://localhost:3001/${iconList[contact.category]}`)
+
+
+    return (`http://localhost:3001/${iconList[category]}`)
   }
 
 function getDate (timestamp) {
@@ -169,6 +172,35 @@ function nl2br (str, is_xhtml) {
     return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + breakTag + '$2');
 }
 
+//https://stackoverflow.com/questions/3177836/how-to-format-time-since-xxx-e-g-4-minutes-ago-similar-to-stack-exchange-site
+function timeSince(date) {
+
+  var seconds = Math.floor((new Date() - date) / 1000);
+
+  var interval = Math.floor(seconds / 31536000);
+
+  if (interval > 1) {
+    return interval + " years";
+  }
+  interval = Math.floor(seconds / 2592000);
+  if (interval > 1) {
+    return interval + " months";
+  }
+  interval = Math.floor(seconds / 86400);
+  if (interval > 1) {
+    return interval + " days";
+  }
+  interval = Math.floor(seconds / 3600);
+  if (interval > 1) {
+    return interval + " hours";
+  }
+  interval = Math.floor(seconds / 60);
+  if (interval > 1) {
+    return interval + " minutes";
+  }
+  return Math.floor(seconds) + " seconds";
+}
+
 
 module.exports = {
   genID,
@@ -177,5 +209,6 @@ module.exports = {
   capitalize,
   getImg,
   getDate,
-  nl2br
+  nl2br,
+  timeSince
 }

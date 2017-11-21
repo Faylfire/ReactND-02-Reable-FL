@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { genID, getImg, getDate, testCata, capitalize} from '../utils/helper.js'
+import { timeSince, getDate, getImg } from '../utils/helper.js'
 import * as dataAccessAPI from '../utils/dataAccessAPI.js'
 import sortBy from 'sort-by'
 import { connect } from 'react-redux'
-import { updatePost, removePost, } from '../actions'
 import { Link } from 'react-router-dom'
 import { decCommCount, updateComment, removeComment, setFilter, commentsFetchData, openModal } from '../actions'
 import VoteScore from './VoteScore.js'
@@ -65,30 +64,33 @@ class ListComments extends Component {
               <li key={comment.id} >
                 <div className='post-item'>
                   <div className='post-heading'>
+                    <div className='contact-avatar' style={{
+                      backgroundImage: `url(${getImg('userAvatar')})`
+                    }}/>
                     <VoteScore
                       elemID={comment.id}
                       elemType='comments'
                     />
-                    <Label>
-                      <Icon name='comment outline' /><strong>{comment.author}</strong>
-                    </Label>
-                    <p>{`Submitted on ${getDate(comment.timestamp)}`}</p>
-                    <div className='edit-delete'>
-                      <Button icon
-                        onClick={() => this.props.openMod({elemType:'comments', elemID:comment.id, elemNew:false, parentId:this.props.postID})}
-                        circular='true'
-                        positive
-                        >
-                        <Icon name='edit' />
-                      </Button>
-                      <Button icon
-                        onClick={()=> deleteComment({commentID:comment.id, parentId:this.props.postID})}
-                        circular='true'
-                        negative
-                        >
-                        <Icon name='remove' />
-                      </Button>
-                    </div>
+                  <div className="contact-details">
+                    <p>{`Submitted ${timeSince(comment.timestamp)} ago`}</p>
+                    <p className="post-author">{`by ${comment.author}`}</p>
+                  </div>
+                  <div className='edit-delete'>
+                    <Button icon
+                      onClick={() => this.props.openMod({elemType:'comments', elemID:comment.id, elemNew:false, parentId:this.props.postID})}
+                      circular='true'
+                      positive
+                      >
+                      <Icon name='edit' />
+                    </Button>
+                    <Button icon
+                      onClick={()=> deleteComment({commentID:comment.id, parentId:this.props.postID})}
+                      circular='true'
+                      negative
+                      >
+                      <Icon name='remove' />
+                    </Button>
+                  </div>
                   </div>
                   <div className='post-body'>
                     <p>{comment.body}</p>

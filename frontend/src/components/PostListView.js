@@ -1,17 +1,14 @@
 import React from 'react';
-import { Link, NavLink, Route, Switch } from 'react-router-dom'
 import { updatePost, removePost, updateComment, removeComment, setFilter } from '../actions'
 import * as dataAccessAPI from '../utils/dataAccessAPI.js'
-import { getImg, getDate} from '../utils/helper.js'
-import sortBy from 'sort-by'
 import { connect } from 'react-redux'
 import ShowPosts from './ShowPosts.js'
-import PostDetails from './PostDetails.js'
 
 
-const TestParams = (props) => {
+
+const PostListView = (props) => {
 	//let {category, number} = props.match.params
-	const {sortType, posts, comments, categories, router, addPost, addComment, deleteComment, deletePost, setCategory} = props
+	const {sortType, posts, router,  setCategory} = props
 	let category = router.location.pathname.slice(1)
 
 	let path = router.location.pathname.slice(1)
@@ -22,19 +19,12 @@ const TestParams = (props) => {
   	setCategory(category)
   	id = path.slice(path.indexOf('/')+1)
   }
-  /*
-	if (Object.keys(props.match.params).length === 0){
-		category = ''
-	}*/
+
 
 	let postsList = [...Object.values(posts)].filter((c) => {
-        return (c.deleted !== true && (c.category == category || category == ''))
+        return (c.deleted !== true && (c.category === category || category === ''))
       })
 
-	console.log(props)
-	console.log("Posts for: " + category)
-	console.log("Posts for: " + id)
-	console.log(postsList)
 	return (
 		<div className="show-posts">
         <ShowPosts />
@@ -47,7 +37,6 @@ function mapStateToProps ({ sortType, posts, comments, categories, viewFilter, r
 
   return {
     posts: posts,
-    comments: comments,
     categories: categories,
     viewFilter: viewFilter,
     router: router,
@@ -71,5 +60,4 @@ function mapDispatchToProps (dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-  )(TestParams)
-
+  )(PostListView)
