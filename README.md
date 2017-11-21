@@ -24,7 +24,7 @@ Clone the repo follow the instructions below:
     - `cd api-server`
     - `npm install`
     - `node server`
-* In another terminal window start the front-end server
+* In another terminal window Install and Start the front-end server
     - `cd frontend`
     - `npm install`
     - `npm start`
