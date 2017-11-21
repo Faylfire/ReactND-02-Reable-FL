@@ -49,6 +49,7 @@ Unless modified in `api-server/config.js` server will use port 3001
 
 [w3schools.com](https://www.w3schools.com)
 
+[openclipart.org](https://openclipart.org/detail/247319/abstract-user-icon-3)
 
 * StackOverflow, Google, Medium, Youtube mention *
 

@@ -154,9 +154,8 @@ function getImg (category, imgURL="http://localhost:3001/freesample.svg") {
       udacity: 'default.png',
       general: 'life.jpg',
       life: 'freesample.svg',
-      userAvatar:'avatar.jpeg'
+      userAvatar:'user.svg'
     }
-
 
     return (`http://localhost:3001/${iconList[category]}`)
   }
