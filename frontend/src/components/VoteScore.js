@@ -27,23 +27,23 @@ class VoteScore extends Component {
 		}
 
 		return (
-			<div className='vote-score'>
+			<div className="vote-score">
 				<Button icon
 					fluid
-					size='tiny'
+					size="tiny"
 					onClick={()=> voteUp({elemType:elemType, elemID:elemID})}
 				>
-			  	<Icon name='chevron up' />
+			  	<Icon name="chevron up" />
 				</Button>
-				<Label circular size='large'>
-			  	<Icon name='hand peace' /> {voteScore}
+				<Label circular size="large">
+			  	<Icon name="hand peace" /> {voteScore}
 				</Label>
 				<Button icon
 					fluid
-					size='tiny'
+					size="tiny"
 					onClick={()=> voteDown({elemType:elemType, elemID:elemID})}
 				>
-			  	<Icon name='chevron down' />
+			  	<Icon name="chevron down" />
 				</Button>
 			</div>
   	)

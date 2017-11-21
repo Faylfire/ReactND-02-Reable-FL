@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { timeSince, getImg } from '../utils/helper.js'
+import { timeSince, getImg, nl2br } from '../utils/helper.js'
 import * as dataAccessAPI from '../utils/dataAccessAPI.js'
 //import sortBy from 'sort-by'
 import { connect } from 'react-redux'
@@ -50,20 +50,24 @@ class ListComments extends Component {
 
     return (
       <div>
-        <div className='new-post-modal'>
-          <Button content='Write a Comment' labelPosition='left' icon='commenting' onClick={this.handleOpen}/>
+        <div className="new-post-modal">
+          <Button content="Write a Comment"
+                  labelPosition="left"
+                  icon="commenting"
+                  onClick={this.handleOpen}
+          />
         </div>
-        <div className='comment-list'>
-      		<ol className='contact-list'>
+        <div className="comment-list">
+      		<ol className="contact-list">
             {commentList.length === 0 ?
-              <div className='nothing-here'>
+              <div className="nothing-here">
                 <em>Add a comment!</em>
               </div> :
               commentList.map((comment, index) =>
               <li key={comment.id} >
-                <div className='post-item'>
-                  <div className='post-heading'>
-                    <div className='contact-avatar' style={{
+                <div className="comment-item">
+                  <div className="comment-heading">
+                    <div className="contact-avatar" style={{
                       backgroundImage: `url(${getImg('userAvatar')})`
                     }}/>
                     <VoteScore
@@ -74,27 +78,26 @@ class ListComments extends Component {
                     <p>{`Submitted ${timeSince(comment.timestamp)} ago`}</p>
                     <p className="post-author">{`by ${comment.author}`}</p>
                   </div>
-                  <div className='edit-delete'>
+                  <div className="edit-delete">
                     <Button icon
                       onClick={() => this.props.openMod({elemType:'comments', elemID:comment.id, elemNew:false, parentId:this.props.postID})}
                       circular
                       positive
                       >
-                      <Icon name='edit' />
+                      <Icon name="edit" />
                     </Button>
                     <Button icon
                       onClick={()=> deleteComment({commentID:comment.id, parentId:this.props.postID})}
                       circular
                       negative
                       >
-                      <Icon name='remove' />
+                      <Icon name="remove" />
                     </Button>
                   </div>
                   </div>
-                  <div className='post-body'>
-                    <p>{comment.body}</p>
+                  <div className="post-body">
+                    {nl2br(comment.body).split('<br />').map((paragraph) => <p>{paragraph}</p> )}
                   </div>
-
                 </div>
               </li>
             )}
@@ -109,13 +112,11 @@ class ListComments extends Component {
 
 
 
-function mapStateToProps ({ posts,
-  comments, categories, viewFilter, router,
+function mapStateToProps ({ posts, categories, viewFilter, router,
   commentsIsLoading, commentsHasErrored, items }) {
 
   return {
     posts: posts,
-    comments: comments,
     categories: categories,
     viewFilter: viewFilter,
     router: router,

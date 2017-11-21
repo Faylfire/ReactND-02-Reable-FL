@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom'
 import { openModal, updatePost, removePost, updateComment, removeComment, setFilter, commentsFetchData } from '../actions'
 import * as dataAccessAPI from '../utils/dataAccessAPI.js'
-import { getImg, timeSince} from '../utils/helper.js'
+import { getImg, timeSince, nl2br} from '../utils/helper.js'
 //import sortBy from 'sort-by'
 import { connect } from 'react-redux'
 import ListComments from './ListComments.js'
@@ -27,22 +27,22 @@ const PostDetails = (props) => {
 
 
 	return (
-		<div className='post-details'>
+		<div className="post-details">
       {postsList.length === 0 ?
-        <div className='nothing-here'>
+        <div className="nothing-here">
           <em>There doesn't seem to be anything here...</em>
         </div> :
         postsList.map((post, index) =>
           <div key={post.id}>
-            <div className='post-item'>
-              <div className='post-heading'>
-                <div className='contact-avatar' style={{
+            <div className="post-item">
+              <div className="post-heading">
+                <div className="contact-avatar" style={{
                   backgroundImage: `url(${getImg(post.category)})`
                 }}/>
                 <VoteScore
-                  className='post-detail-vote'
+                  className="post-detail-vote"
                   elemID={post.id}
-                  elemType='posts'
+                  elemType="posts"
                 />
                 <div className="contact-details">
                   <h3>
@@ -53,29 +53,29 @@ const PostDetails = (props) => {
                   <p>{`Submitted ${timeSince(post.timestamp)} ago`}</p>
                   <p className="post-author">{`by ${post.author}`}</p>
                 </div>
-                <div className='edit-delete'>
+                <div className="edit-delete">
                   <Button icon
                     onClick={() => openMod({elemType:'posts', elemID:post.id, elemNew:false})}
                     circular
                     positive
                     >
-                    <Icon name='edit' />
+                    <Icon name="edit" />
                   </Button>
                   <Button icon
                     onClick={()=> deletePost({postID:post.id})}
                     circular
                     negative
                     >
-                    <Icon name='remove' />
+                    <Icon name="remove" />
                   </Button>
                 </div>
               </div>
-              <div className='post-body'>
-                <p>{post.body}</p>
+              <div className="post-body">
+                {nl2br(post.body).split('<br />').map((paragraph) => <p>{paragraph}</p> )}
               </div>
 
             </div>
-            <div className='post-comment-count'>
+            <div className="post-comment-count">
               {post.commentCount === 1 ?
                 <h4>{`${post.commentCount} comment`}</h4> :
                 <h4>{`${post.commentCount} comments`}</h4>
@@ -93,13 +93,10 @@ const PostDetails = (props) => {
 }
 
 
-function mapStateToProps ({ posts,
-  comments, categories, viewFilter, router,
-  commentsIsLoading, commentsHasErrored, items }) {
+function mapStateToProps ({ posts, categories, viewFilter, router, items }) {
 
   return {
     posts: posts,
-    comments: comments,
     categories: categories,
     viewFilter: viewFilter,
     router: router,

@@ -1,22 +1,59 @@
-# Readable API Server
+# Readable
 
-This is the starter project for the final assessment project for Udacity's Redux course where you will build a content and comment web app. Users will be able to post content to predefined categories, comment on their posts and other users' posts, and vote on posts and comments. Users will also be able to edit and delete posts and comments.
+This is the final assessment project for Udacity's Redux course (part of the React Nanodegree) where you will build a content and comment web app. Users will be able to post content to predefined categories, comment on their posts and other users' posts, and vote on posts and comments. Users will also be able to edit and delete posts and comments.
 
 This repository includes the code for the backend API Server that you'll use to develop and interact with the front-end portion of the project.
 
-## Start Developing
+React is used in conjuction with SemanticUI to create the views.
 
-To get started developing right away:
+Bootstrapped with [create-react-app](https://github.com/facebookincubator/create-react-app).
+
+Based on [udacity's project template](https://github.com/udacity/reactnd-project-readable-starter).
+
+
+### Prerequisites
+
+Running this project requires [Node](https://nodejs.org/en/). Optionally, [Yarn](https://code.facebook.com/posts/1840075619545360) package manager can be installed as well.
+
+### Installing and Running *IMPORTANT*
+
+Clone the repo follow the instructions below:
+
 
 * Install and start the API server
     - `cd api-server`
     - `npm install`
     - `node server`
-* In another terminal window, use Create React App to scaffold out the front-end
-    - `create-react-app frontend`
+* In another terminal window start the front-end server
     - `cd frontend`
+    - `npm install`
     - `npm start`
 
-## API Server
 
-Information about the API server and how to use it can be found in its [README file](api-server/README.md).
+The page should open automatically in browser. Else go to `localhost:3000` in your browser to view the app.
+
+Unless modified in `api-server/config.js` server will use port 3001
+
+
+## Built With
+
+* [React](https://facebook.github.io/react/)
+* [React-SemanticUI](https://github.com/Semantic-Org/Semantic-UI-React)
+
+
+## Resource links
+
+[Redux documentation](http://redux.js.org/)
+
+[Javascript | MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference)
+
+[w3schools.com](https://www.w3schools.com)
+
+
+* StackOverflow, Google, Medium, Youtube mention *
+
+
+
+## License
+
+This project is licensed under the MIT License

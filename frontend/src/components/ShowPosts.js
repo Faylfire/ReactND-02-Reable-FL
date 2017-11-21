@@ -22,20 +22,20 @@ const ShowPosts = (props) => {
   //Sort Posts by sortType selected
   postsList.sort(sortBy(sortType))
 	return (
-		<div className='show-posts'>
-			  <ol className='contact-list'>
+		<div className="show-posts">
+			  <ol className="contact-list">
           {postsList.length === 0 ?
-            <div className='nothing-here'>
+            <div className="nothing-here">
               <em>There doesn't seem to be anything here...</em>
             </div> :
             postsList.map((post, index) =>
-            <li key={post.id} className='contact-list-item'>
-              <div className='contact-avatar' style={{
+            <li key={post.id} className="contact-list-item">
+              <div className="contact-avatar" style={{
                 backgroundImage: `url(${getImg(post.category)})`
                 }}/>
               <VoteScore
                 elemID={post.id}
-                elemType='posts'
+                elemType="posts"
               />
               <div className="contact-details">
                 <h3>
@@ -47,20 +47,20 @@ const ShowPosts = (props) => {
                 <p className="post-author"><strong>{`by ${post.author}`}</strong></p>
                 <p className="post-author">{`${post.commentCount} comments`}</p>
               </div>
-              <div className='edit-delete'>
+              <div className="edit-delete">
                 <Button icon
                   onClick={() => openMod({elemType:'posts', elemID:post.id, elemNew:false})}
                   circular
                   positive
                   >
-                  <Icon name='edit' />
+                  <Icon name="edit" />
                 </Button>
                 <Button icon
                   onClick={()=> deletePost({postID:post.id})}
                   circular
                   negative
                   >
-                  <Icon name='remove' />
+                  <Icon name="remove" />
                 </Button>
               </div>
             </li>

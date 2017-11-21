@@ -170,47 +170,6 @@ function posts (state = {}, action) {
 
 }
 
-/*
-function comments (state = {}, action) {
-	const {commentID, comment } = action
-
-
-	switch(action.type) {
-		case UPDATE_COMMENT:
-			return {
-				...state,
-				[commentID]: comment
-			}
-		case REMOVE_COMMENT:
-			return {
-				...state,
-				[commentID]:{
-					...state[commentID],
-					deleted: true
-				}
-			}
-        case VOTE_COMMENT_UP:
-            return {
-                ...state,
-                [commentID]:{
-                    ...state[commentID],
-                    voteScore: state[commentID].voteScore + 1
-                }
-            }
-        case VOTE_COMMENT_DOWN:
-            return {
-                ...state,
-                [commentID]:{
-                    ...state[commentID],
-                    voteScore: state[commentID].voteScore - 1
-                }
-            }
-		default:
-			return state
-	}
-
-}
-*/
 
 function categories (state = {}, action) {
 
@@ -256,6 +215,8 @@ export function commentsIsLoading(state = false, action) {
     }
 }
 
+
+//Redux Store for comments
 export function items(state = {}, action) {
     const {commentID, comment } = action
 

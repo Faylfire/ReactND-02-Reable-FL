@@ -32,6 +32,8 @@ class EditPostModal extends Component {
 	    let {elemType, elemID, elemNew} = modal
 	    let editElement = {}
 
+	    //Sets up the default post structure for New Posts and Comments
+	    //Else retrieves the existing Post or comment
 	    if (elemNew === true) {
 	    	if (elemType === 'posts'){
 	    		editElement = {
@@ -64,6 +66,7 @@ class EditPostModal extends Component {
 					editElement = items[elemID]
 				}
 			}
+			//Pushes to component state for controlled Modal inputs
 			this.setState({
 						 title:editElement.title,
 						 body: editElement.body,
@@ -92,6 +95,8 @@ class EditPostModal extends Component {
   	let modElement = this.state.editElement
   	let {title, body, author, category} = this.state
 
+  	//Formats posts for Edit or Creation depending on if it was a New Post/Comment or
+  	//Editing an existing Post/Comment
   	if (modal.elemType === 'posts'){
 
   		modElement['title'] = title
@@ -99,6 +104,7 @@ class EditPostModal extends Component {
   		modElement['author'] = author
   		modElement['category'] = category
 
+  		//if new post, reassign the timestamp and ID
   		if (modal.elemNew === true){
   			let id = genID()
   			modElement['id'] = id
@@ -107,8 +113,9 @@ class EditPostModal extends Component {
   		editPost({postID:modElement.id, post:modElement, elemNew:modal.elemNew})
 
   	} else if(modal.elemType === 'comments'){
-  		modElement['body']=body
+  		modElement['body']= body
   		modElement['author']=author
+  		//If new post, reassign the timestamp and ID
   		if (modal.elemNew === true){
   			let id = genID()
   			modElement['id']=id
@@ -145,14 +152,43 @@ class EditPostModal extends Component {
 		    <Modal.Content>
 		      <Modal.Description>
 		        <Form onSubmit={this.handleSubmit}>
-		        <Form.Group widths='equal'>
-		          <Form.Input required disabled={!elemNew} label='Author' name='author' value={author} placeholder='User Name' onChange={this.handleChange}/>
-		          <Form.Select required disabled={(elemType === 'comments' || !elemNew) ? true : false} label='Category' name='category' value={category} options={options} placeholder='Category' onChange={this.handleChange} />
+		        <Form.Group widths="equal">
+		          <Form.Input required
+		          						disabled={!elemNew}
+		          						label="Author"
+		          						name="author"
+		          						value={author}
+		          						placeholder="User Name"
+		          						onChange={this.handleChange}
+		          />
+		          <Form.Select required
+		          						 disabled={(elemType === 'comments' || !elemNew) ? true : false}
+		          						 label="Category"
+		          						 name="category"
+		          						 value={category}
+		          						 options={options}
+		          						 placeholder="Category"
+		          						 onChange={this.handleChange}
+		          />
 		        </Form.Group>
-		        <Form.Group widths='equal'>
-		          <Form.Input required disabled={elemType === 'comments' ? true : false} label='Title' name='title' value={title} placeholder='Title' onChange={this.handleChange}/>
+		        <Form.Group widths="equal">
+		          <Form.Input required
+		          						disabled={elemType === 'comments' ? true : false}
+		          						label="Title"
+		          						name="title"
+		          						value={title}
+		          						placeholder="Title"
+		          						onChange={this.handleChange}
+		          />
 		        </Form.Group>
-		        <Form.TextArea required label='Content' name='body' value={body} rows='15' placeholder='Write your thoughts here...' onChange={this.handleChange}/>
+		        <Form.TextArea required
+		        							 label="Content"
+		        							 name="body"
+		        							 value={body}
+		        							 rows="15"
+		        							 placeholder="Write your thoughts here..."
+		        							 onChange={this.handleChange}
+		        />
 		        <Form.Button>Submit</Form.Button>
 		      </Form>
 		      </Modal.Description>
@@ -161,7 +197,6 @@ class EditPostModal extends Component {
     	</div>
   	)
 	}
-
 
 }
 
@@ -180,8 +215,6 @@ function mapDispatchToProps (dispatch) {
     setCategory: (data) => dispatch(setFilter(data)),
     closeMod: () => dispatch(closeModal()),
     editPost: (data) => {
-    	console.log("In editPost")
-    	console.log(data)
 
     	if (data.elemNew === true){
     		dataAccessAPI.addPost(data.post, 'posts')

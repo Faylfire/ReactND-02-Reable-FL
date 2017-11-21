@@ -61,18 +61,6 @@
   display:flex;
 }
 
-.showing-contacts {
-  text-align: center;
-  margin: 20px 0;
-}
-.showing-contacts button {
-  color: blue;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  font-size: inherit;
-}
-
 .contact-list {
   padding: 0;
   list-style-type: none;
@@ -138,22 +126,6 @@
     text-decoration: underline;
 }
 
-.contact-remove {
-  padding-left: 20px;
-  align-self: center;
-  width: 32px;
-  height: 32px;
-  background-color: transparent;
-  background-image: url('../icons/cancel.svg');
-  background-size: 100% 100%;
-  border: 0;
-  color: black;
-  font-size: 0;
-  vertical-align: middle;
-  cursor: pointer;
-  outline: none;
-}
-
 .post-author {
   color: gray;
 }
@@ -194,31 +166,52 @@
     background-color: steelblue;
 }
 
-/*Post Details*/
+/*Post Details with Comments*/
 
 .post-item {
+  margin:20px;
+  padding: 10px;
+  background: #DCEDC8;
+  display:block;
+}
+
+.post-heading {
+  padding: 20px;
+  background: #DCEDC8;
+  display: flex;
+  border-bottom:1px solid #d5d8df;;
+}
+
+/*Comment items*/
+.comment-item {
   margin:20px;
   padding: 10px;
   background: white;
   display:block;
 }
 
-.post-heading {
+.comment-heading {
   padding: 20px;
   background: white;
   display: flex;
   border-bottom:1px solid #d5d8df;;
 }
 
-
+/*Shared post and comment */
 .post-body {
   padding: 10px;
-  background: #f1e9d2; /*parchemnt color*/
+  background: #f1e9d2; /*#f1e9d2 parchemnt color*/
   text-align:left;
 }
 
 @media (min-width: 600px) {
   .post-item {
+    margin: 20px;
+    border: 1px solid #d5d8df;
+    border-radius: 4px;
+  }
+
+  .comment-item {
     margin: 20px;
     border: 1px solid #d5d8df;
     border-radius: 4px;

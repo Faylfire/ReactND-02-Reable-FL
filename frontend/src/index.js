@@ -10,6 +10,8 @@ import { ConnectedRouter } from 'connected-react-router'
 import 'semantic-ui-css/semantic.min.css'
 
 
+//Sets up the Redux Store initial state for faster render after load
+//Front loads the posts
 function getInitialState(){
 
 	let arr = [dataAccessAPI.getAll('posts'), dataAccessAPI.getAll('categories')]
@@ -21,13 +23,13 @@ function getInitialState(){
 				posts[post.id]=post
 				return posts
 			}, {})
-			console.log(posts)
+			//console.log(posts)
 
 			let initialState = {
 				posts: posts,
 				categories: res[1]['categories'],
 			}
-			console.log('success', initialState)
+			//console.log('success', initialState)
 			return initialState
 		})
 		.then(initialState => {

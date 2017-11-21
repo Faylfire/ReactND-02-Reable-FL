@@ -52,9 +52,9 @@ class App extends Component {
           <h2>Readable</h2>
         </div>
         <nav>
-          <ul className='nav-ul'>
+          <ul className="nav-ul">
             {enhancedCategories.map((ele, index) =>
-              <li className='nav-li-ele' key={ele.name}>
+              <li className="nav-li-ele" key={ele.name}>
                 <Link
                   to={`/${ele.path}`}
                   onClick={()=> setCategory({category:ele.name})}
@@ -64,15 +64,16 @@ class App extends Component {
           </ul>
         </nav>
         <EditPostModal options={options}/>
-        <div className='sub-body'>
-          <div className='new-post-modal'>
-            <Button content='Add New Post' labelPosition='left' icon='add' onClick={this.handleOpen}/>
+        <div className="sub-body">
+          <div className="new-post-modal">
+            <Button content="Add New Post" labelPosition="left" icon="add" onClick={this.handleOpen}/>
           </div>
           <SortPosts />
+
           <Switch>
             <Route exact path="/" component={ShowPosts}/>
-            <Route exact path='/:category/:number' component={PostDetails}/>
-            <Route path='/:category' component={ShowPosts}/>
+            <Route exact path="/:category/:number" component={PostDetails}/>
+            <Route path="/:category" component={ShowPosts}/>
           </Switch>
         </div>
       </div>
