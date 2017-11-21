@@ -30,9 +30,9 @@ Clone the repo follow the instructions below:
     - `npm start`
 
 
-The page should open automatically in browser. Else go to `localhost:3000` in your browser to view the app.
+The page should open automatically in browser. Or go to `localhost:3000` in your browser to view the app.
 
-Unless modified in `api-server/config.js` server will use port 3001
+Unless modified in `api-server/config.js` backend api-server will use port 3001
 
 
 ## Built With
